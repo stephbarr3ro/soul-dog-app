@@ -55,7 +55,7 @@ const BookCover = () => {
             {children.length > 0 && children[0].name ? children.map(c => c.name).join(' & ') : "Your child's name"}
           </p>
           {dogs.length > 0 && (
-            <p className="text-gold/60 text-[9px] font-bold uppercase tracking-widest">
+            <p className="text-gold/70 font-display text-sm italic">
               & {dogs.map(d => d.name || '...').join(' & ')}
             </p>
           )}
