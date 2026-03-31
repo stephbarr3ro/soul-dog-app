@@ -34,6 +34,17 @@ const HAIR_MAP: Record<string, Record<string, string>> = {
   },
 };
 
+const EYE_MAP: Record<string, string> = {
+  'Brown':      'brown.webp',
+  'Dark Brown': 'brown.webp',
+  'Amber':      'amber.webp',
+  'Hazel':      'hazel.webp',
+  'Green':      'green.webp',
+  'Blue':       'blue.webp',
+  'Gray':       'gray.webp',
+  'Black':      'black.webp',
+};
+
 const layer: React.CSSProperties = {
   position: 'absolute',
   inset: 0,
@@ -45,7 +56,8 @@ const layer: React.CSSProperties = {
 export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child, size = 300 }) => {
   const gender   = child.gender === 'Boy' ? 'boy' : 'girl';
   const bodyUrl  = `${CDN}/body/${gender}.webp`;
-  const eyeUrl   = `${CDN}/eyes/brown.webp`;
+  const eyeFile  = EYE_MAP[child.eyeColor] || 'brown.webp';
+  const eyeUrl   = `${CDN}/eyes/${eyeFile}`;
   const hairFile = HAIR_MAP[gender][child.hairStyle] || Object.values(HAIR_MAP[gender])[0];
   const hairUrl  = `${CDN}/hair/${gender}/${hairFile}`;
 
@@ -57,5 +69,3 @@ export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child,
     </div>
   );
 };
-// Tue Mar 31 19:11:34 CEST 2026
-// reconnected Tue Mar 31 19:17:51 CEST 2026
