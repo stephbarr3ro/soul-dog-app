@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ShoppingBag, BookOpen, Star, Sparkles, ArrowRight } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
@@ -25,6 +25,25 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleNavClick = (e: React.MouseEvent, path: string) => {
+    if (path.startsWith('/#')) {
+      e.preventDefault();
+      const id = path.replace('/#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate('/');
+        setTimeout(() => {
+          const el2 = document.getElementById(id);
+          if (el2) el2.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      }
+    }
+  };
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -115,6 +134,7 @@ const Header = () => {
                 >
                   <Link
                     to={link.path}
+                    onClick={(e) => handleNavClick(e, link.path)}
                     onClick={() => setIsOpen(false)}
                     className="text-left text-4xl font-display text-navy hover:text-gold transition-colors block"
                   >
