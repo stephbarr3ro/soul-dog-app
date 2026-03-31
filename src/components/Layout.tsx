@@ -77,14 +77,12 @@ const Header = () => {
               to={link.path}
               onClick={(e) => handleNavClick(e, link.path)}
               className={cn(
-                "hover:text-navy transition-all relative group py-2",
-                location.pathname === link.path && "text-navy"
+                "hover:text-navy transition-all relative group py-2"
               )}
             >
               {link.name}
               <span className={cn(
-                "absolute bottom-0 left-0 w-0 h-[1.5px] bg-gold transition-all duration-500 ease-out group-hover:w-full",
-                location.pathname === link.path && "w-full"
+                "absolute bottom-0 left-0 w-0 h-[1.5px] bg-gold transition-all duration-500 ease-out group-hover:w-full"
               )} />
             </Link>
           ))}
