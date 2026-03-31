@@ -204,22 +204,38 @@ const Hero = () => (
 );
 
 const AsSeenOn = () => (
-  <section className="py-8 md:py-16 bg-white border-b border-gray-100">
-    <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4 md:gap-8">
-      <span className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-navy/30">As Seen On</span>
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="flex items-center justify-center px-8 py-5 md:px-16 md:py-10 bg-cream rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl shadow-navy/5 transition-all duration-700 hover:shadow-2xl hover:-translate-y-1 group"
-      >
-        <img 
-          src="https://assets.cdn.filesafe.space/JF29jtnubhqtdPivD9K0/media/69c2ffa2fe4d0dd24ad44d58.png" 
-          alt="ABC News Live" 
-          className="h-8 md:h-16 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
-          referrerPolicy="no-referrer"
-        />
-      </motion.div>
+  <section style={{ background: '#FBF6F0' }} className="py-12 md:py-20 px-6 md:px-12">
+    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
+      <div className="flex flex-col gap-4 md:gap-6 flex-1">
+        <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-navy/40">As Seen On</span>
+        <h3 className="text-3xl md:text-4xl font-display text-navy leading-tight">
+          Trusted by families <br className="hidden md:block" />
+          <span className="italic">across the country</span>
+        </h3>
+        <p className="text-navy/50 text-base leading-relaxed max-w-sm">
+          Soul Dog Stories has been featured on national media for creating the most meaningful personalized books for families and their dogs.
+        </p>
+      </div>
+      <div className="relative flex-shrink-0">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="relative w-72 md:w-96 h-72 md:h-96 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-navy/15"
+        >
+          <img src="/social_proof.jpg" alt="Soul Dog Stories featured" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-20 h-20 md:w-24 md:h-24 rounded-full bg-white shadow-2xl shadow-navy/20 flex items-center justify-center p-3 border-4 border-white"
+        >
+          <img src="https://assets.cdn.filesafe.space/JF29jtnubhqtdPivD9K0/media/69c2ffa2fe4d0dd24ad44d58.png" alt="ABC News Live" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
+        </motion.div>
+      </div>
     </div>
   </section>
 );
