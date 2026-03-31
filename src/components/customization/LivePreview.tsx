@@ -148,7 +148,7 @@ export const LivePreview = ({ className, step = 0, compact = false }: LivePrevie
           ))}
         </div>
         <div className="relative z-10 w-full flex flex-col items-center gap-8">
-          <BookCover showDogImage={!isTrueLikeness} />
+          <BookCover showDogImage={false} />
           <div className="flex items-center gap-4 px-6 py-2 rounded-full bg-white/5 border border-white/10">
             <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Join 2,400+ happy families</p>
           </div>
