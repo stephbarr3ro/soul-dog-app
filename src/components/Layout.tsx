@@ -176,10 +176,10 @@ const Footer = () => (
         <p className="text-gray-400 text-sm">© 2026 Soul Dog Stories. All rights reserved.</p>
       </div>
       <div className="flex flex-wrap justify-center gap-8 text-sm font-medium text-navy">
-        <Link to="/privacy" className="hover:text-gold">Privacy</Link>
-        <Link to="/terms" className="hover:text-gold">Terms</Link>
-        <Link to="/contact" className="hover:text-gold">Contact</Link>
-        <Link to="/shipping" className="hover:text-gold">Shipping</Link>
+        <a href="https://souldogstories.myshopify.com/policies/privacy-policy" target="_blank" rel="noopener" className="hover:text-gold">Privacy</a>
+        <a href="https://souldogstories.myshopify.com/policies/terms-of-service" target="_blank" rel="noopener" className="hover:text-gold">Terms</a>
+        <a href="https://souldogstories.myshopify.com/pages/contact" target="_blank" rel="noopener" className="hover:text-gold">Contact</a>
+        <a href="https://souldogstories.myshopify.com/policies/shipping-policy" target="_blank" rel="noopener" className="hover:text-gold">Shipping</a>
       </div>
     </div>
   </footer>
