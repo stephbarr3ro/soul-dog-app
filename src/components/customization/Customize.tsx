@@ -22,6 +22,26 @@ const STEPS = [
   { id: 'review',   label: 'Review'   },
 ];
 
+const StepIndicator = ({ currentStep }: { currentStep: number }) => (
+  <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+    {STEPS.map((step, index) => (
+      <div key={step.id} className="flex flex-col gap-1.5 min-w-[52px]">
+        <div className={cn(
+          "h-0.5 rounded-full transition-all duration-700",
+          currentStep === index ? "bg-navy w-full" :
+          currentStep > index  ? "bg-gold w-full"  : "bg-gray-100 w-5"
+        )} />
+        <span className={cn(
+          "text-[8px] font-bold uppercase tracking-[0.25em] transition-colors",
+          currentStep === index ? "text-navy" : "text-gray-300"
+        )}>
+          {step.label}
+        </span>
+      </div>
+    ))}
+  </div>
+);
+
 export const Customize = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -69,13 +89,11 @@ export const Customize = () => {
         'Dedication': dedication,
         'Gift Wrapping': giftWrapping ? 'Yes' : 'No',
       };
-
       children.forEach((child, i) => {
         customProperties[`Child ${i + 1} Name`] = child.name;
         customProperties[`Child ${i + 1} Gender`] = child.gender;
         customProperties[`Child ${i + 1} Age`] = child.ageRange;
       });
-
       dogs.forEach((dog, i) => {
         customProperties[`Dog ${i + 1} Name`] = dog.name;
         customProperties[`Dog ${i + 1} Breed`] = dog.breed;
@@ -88,7 +106,6 @@ export const Customize = () => {
         quantity: 1,
         customAttributes: Object.entries(customProperties).map(([key, value]) => ({ key, value })),
       }];
-
       await createCheckoutAndRedirect(lineItems);
     } catch (error) {
       console.error('Checkout error:', error);
@@ -110,79 +127,93 @@ export const Customize = () => {
     }
   };
 
-  const showMobilePreview = currentStep !== 0;
+  const isEditionStep = currentStep === 0;
+  const hasPreview = !isEditionStep;
 
+  // NAV bar
+  const NavBar = () => (
+    <div className="fixed bottom-0 left-0 w-full md:w-1/2 bg-white/90 backdrop-blur-2xl border-t border-gray-100 p-5 flex gap-4 z-40">
+      <button onClick={handleBack} className="px-6 py-4 rounded-full border border-gray-200 font-bold text-navy/40 hover:border-navy hover:text-navy transition-all flex items-center gap-2 text-xs uppercase tracking-widest">
+        <ChevronLeft className="w-4 h-4" /> Back
+      </button>
+      <button onClick={handleNext} disabled={isProcessing} className={cn(
+        "flex-1 px-6 py-4 rounded-full bg-navy text-cream font-bold hover:bg-gold transition-all flex items-center justify-center gap-3 shadow-2xl text-xs uppercase tracking-widest",
+        isProcessing && "opacity-70 cursor-not-allowed"
+      )}>
+        {isProcessing ? (
+          <>Processing... <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="w-4 h-4 border-2 border-cream border-t-transparent rounded-full" /></>
+        ) : currentStep === STEPS.length - 1 ? (
+          <>Complete & Checkout <ShoppingBag className="w-4 h-4" /></>
+        ) : (
+          <>Continue <ChevronRight className="w-4 h-4" /></>
+        )}
+      </button>
+    </div>
+  );
+
+  // EDITION STEP — full width centered, no preview column
+  if (isEditionStep) {
+    return (
+      <div className="min-h-screen bg-white flex items-start justify-center">
+        <div className="w-full max-w-2xl px-6 md:px-10 pt-8 pb-28">
+          <StepIndicator currentStep={currentStep} />
+          <div className="mt-8">
+            <AnimatePresence mode="wait">
+              <motion.div key={currentStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4 }}>
+                <Step0_Edition />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+        <NavBar />
+      </div>
+    );
+  }
+
+  // ALL OTHER STEPS — split layout
   return (
     <div className="min-h-screen bg-white flex flex-col md:flex-row">
 
       {/* LEFT — Form */}
       <div className="w-full md:w-1/2 overflow-y-auto md:max-h-screen scrollbar-hide">
 
-        {/* Step indicator */}
-        <div className="px-6 md:px-10 lg:px-16 pt-6 md:pt-10">
-          <div className="flex items-center gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
-            {STEPS.map((step, index) => (
-              <React.Fragment key={step.id}>
-                <div className="flex flex-col gap-2 min-w-[60px]">
-                  <div className={cn(
-                    "h-1 rounded-full transition-all duration-700",
-                    currentStep === index ? "bg-navy w-full" :
-                    currentStep > index ? "bg-gold w-full" : "bg-gray-100 w-6"
-                  )} />
-                  <span className={cn(
-                    "text-[9px] font-bold uppercase tracking-[0.3em] transition-colors",
-                    currentStep === index ? "text-navy" : "text-gray-300"
-                  )}>
-                    {step.label}
-                  </span>
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* MOBILE: preview FIRST, then form */}
-        {showMobilePreview && (
-          <div className="md:hidden mx-6 mb-8 rounded-3xl bg-navy overflow-hidden" style={{ minHeight: 340 }}>
+        {/* MOBILE layout: preview FIRST at top, then step indicator, then form */}
+        <div className="md:hidden">
+          {/* Preview at very top on mobile */}
+          <div className="bg-navy overflow-hidden" style={{ minHeight: 320 }}>
             <LivePreview className="w-full py-8 px-6" step={currentStep} compact />
           </div>
-        )}
 
-        {/* Form content */}
-        <div className="px-6 md:px-10 lg:px-16 pb-28">
-          <div className="max-w-xl mx-auto">
+          {/* Step indicator below preview */}
+          <div className="px-6 pt-5 pb-2">
+            <StepIndicator currentStep={currentStep} />
+          </div>
+
+          {/* Form */}
+          <div className="px-6 pb-28">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              >
+              <motion.div key={currentStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4 }}>
                 {renderStep()}
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="fixed bottom-0 left-0 w-full md:w-1/2 bg-white/90 backdrop-blur-2xl border-t border-gray-100 p-5 flex gap-4 z-40">
-          <button onClick={handleBack} className="px-6 py-4 rounded-full border border-gray-200 font-bold text-navy/40 hover:border-navy hover:text-navy transition-all flex items-center gap-2 text-xs uppercase tracking-widest">
-            <ChevronLeft className="w-4 h-4" /> Back
-          </button>
-          <button onClick={handleNext} disabled={isProcessing} className={cn(
-            "flex-1 px-6 py-4 rounded-full bg-navy text-cream font-bold hover:bg-gold transition-all flex items-center justify-center gap-3 shadow-2xl text-xs uppercase tracking-widest",
-            isProcessing && "opacity-70 cursor-not-allowed"
-          )}>
-            {isProcessing ? (
-              <>Processing... <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="w-4 h-4 border-2 border-cream border-t-transparent rounded-full" /></>
-            ) : currentStep === STEPS.length - 1 ? (
-              <>Complete & Checkout <ShoppingBag className="w-4 h-4" /></>
-            ) : (
-              <>Continue <ChevronRight className="w-4 h-4" /></>
-            )}
-          </button>
+        {/* DESKTOP layout: step indicator + form */}
+        <div className="hidden md:block px-10 lg:px-16 pt-10 pb-28">
+          <div className="mb-10">
+            <StepIndicator currentStep={currentStep} />
+          </div>
+          <div className="max-w-xl mx-auto">
+            <AnimatePresence mode="wait">
+              <motion.div key={currentStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4 }}>
+                {renderStep()}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
+
+        <NavBar />
       </div>
 
       {/* RIGHT — Desktop preview */}
@@ -192,6 +223,7 @@ export const Customize = () => {
         </div>
         <LivePreview className="w-full h-full relative z-10" step={currentStep} />
       </div>
+
     </div>
   );
 };
