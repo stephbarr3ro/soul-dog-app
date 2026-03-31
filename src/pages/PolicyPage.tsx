@@ -81,19 +81,13 @@ const POLICIES: Record<string, { title: string; content: string }> = {
   contact: {
     title: 'Contact Us',
     content: `
-      <p>We'd love to hear from you! Whether you have questions about your order, need help with customization, or just want to share your Soul Dog Stories experience, we're here to help.</p>
-      
-      <h2>Email</h2>
+      <p>We would love to hear from you. Whether you have questions about your order, need help with customization, or just want to share your Soul Dog Stories experience, we are here to help.</p>
+      <h2>Email Us</h2>
       <p><a href="mailto:support@souldogstories.com">support@souldogstories.com</a></p>
-      
       <h2>Response Time</h2>
       <p>We respond to all inquiries within 24-48 business hours.</p>
-      
       <h2>Order Support</h2>
       <p>For questions about an existing order, please include your order number in your message so we can assist you quickly.</p>
-      
-      <h2>Custom Requests</h2>
-      <p>Have a special request or need help with your personalized book? Our team is happy to help you create the perfect story for your family.</p>
     `
   }
 };

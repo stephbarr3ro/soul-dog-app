@@ -4,7 +4,9 @@
  */
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
+const ScrollToTop = () => { const { pathname } = useLocation(); React.useEffect(() => { window.scrollTo(0, 0); }, [pathname]); return null; };
 import { Layout } from '@/src/components/Layout';
 import { Home } from '@/src/pages/Home';
 import { Customize } from '@/src/pages/Customize';
@@ -15,6 +17,7 @@ import { PolicyPage } from '@/src/pages/PolicyPage';
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/customize" element={<Customize />} />
