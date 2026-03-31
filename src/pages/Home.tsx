@@ -205,7 +205,7 @@ const Hero = () => (
 
 const AsSeenOn = () => (
   <section style={{ background: '#FBF6F0' }} className="py-12 md:py-20 px-6 md:px-12">
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
+    <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 md:gap-12">
       <div className="flex flex-col gap-4 md:gap-6 flex-1">
         <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-navy/40">As Seen On</span>
         <h3 className="text-3xl md:text-4xl font-display text-navy leading-tight">
