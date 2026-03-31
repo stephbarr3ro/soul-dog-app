@@ -36,51 +36,72 @@ const HAIR_MAP: Record<string, Record<string, string>> = {
 
 const EYE_MAP: Record<string, string> = {
   'Brown':      'brown.webp',
-  'Dark Brown': 'dark-brown.webp',
-  'Amber':      'amber.webp',
-  'Hazel':      'hazel.webp',
-  'Green':      'green.webp',
-  'Blue':       'blue.webp',
-  'Gray':       'gray.webp',
-  'Black':      'black.webp',
+  'Dark Brown': 'brown.webp',
+  'Amber':      'brown.webp',
+  'Hazel':      'brown.webp',
+  'Green':      'brown.webp',
+  'Blue':       'brown.webp',
+  'Gray':       'brown.webp',
+  'Black':      'brown.webp',
 };
 
-function preloadImage(src: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
+function preloadImage(src: string): Promise<HTMLImageElement | null> {
+  return new Promise((resolve) => {
     const img = new window.Image();
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error(`Failed: ${src}`));
+    img.onerror = () => resolve(null);
     img.src = src;
   });
 }
 
-interface ChildPreviewProps {
-  child: Child;
-  size?: number;
+function applyTintedBody(ctx: CanvasRenderingContext2D, bodyImg: HTMLImageElement, size: number, skinColor: string) {
+  // Draw body to offscreen canvas and tint it
+  const offscreen = document.createElement('canvas');
+  offscreen.width = size;
+  offscreen.height = size;
+  const octx = offscreen.getContext('2d')!;
+
+  // Draw body
+  octx.drawImage(bodyImg, 0, 0, size, size);
+
+  // Apply skin color tint using multiply
+  octx.globalCompositeOperation = 'multiply';
+  octx.fillStyle = skinColor;
+  octx.fillRect(0, 0, size, size);
+
+  // Clip to body shape
+  octx.globalCompositeOperation = 'destination-in';
+  octx.drawImage(bodyImg, 0, 0, size, size);
+
+  // Draw tinted body onto main canvas
+  ctx.drawImage(offscreen, 0, 0);
 }
 
-export const ChildPreview: React.FC<ChildPreviewProps> = ({ child, size = 300 }) => {
+export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child, size = 300 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [rendered, setRendered] = useState('');
   const pendingRef = useRef('');
 
   const gender = child.gender === 'Boy' ? 'boy' : 'girl';
-  const bodyUrl    = `${CDN}/body/${gender}.webp`;
-  const eyeFile    = EYE_MAP[child.eyeColor] || 'brown.webp';
-  const eyeUrl     = `${CDN}/eyes/${eyeFile}`;
-  const hairFile   = HAIR_MAP[gender][child.hairStyle] || Object.values(HAIR_MAP[gender])[0];
-  const hairUrl    = `${CDN}/hair/${gender}/${hairFile}`;
+  // Fallback to boy body if girl doesn't exist yet
+  const bodyUrl  = `${CDN}/body/${gender}.webp`;
+  const boyBodyUrl = `${CDN}/body/boy.webp`;
+  const eyeFile  = EYE_MAP[child.eyeColor] || 'brown.webp';
+  const eyeUrl   = `${CDN}/eyes/${eyeFile}`;
+  const hairFile = HAIR_MAP[gender][child.hairStyle] || Object.values(HAIR_MAP[gender])[0];
+  const hairUrl  = `${CDN}/hair/${gender}/${hairFile}`;
+  const skinColor = '#D3936F';
 
   useEffect(() => {
-    const combo = `${eyeUrl}|${bodyUrl}|${hairUrl}`;
+    const combo = `${gender}|${eyeFile}|${hairFile}`;
     if (rendered === combo) return;
     pendingRef.current = combo;
 
     Promise.all([
-      preloadImage(eyeUrl).catch(() => null),
-      preloadImage(bodyUrl).catch(() => null),
-      preloadImage(hairUrl).catch(() => null),
-    ]).then(([eyeImg, bodyImg, hairImg]) => {
+      preloadImage(bodyUrl).then(img => img || preloadImage(boyBodyUrl)),
+      preloadImage(eyeUrl),
+      preloadImage(hairUrl),
+    ]).then(([bodyImg, eyeImg, hairImg]) => {
       if (pendingRef.current !== combo) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -88,26 +109,16 @@ export const ChildPreview: React.FC<ChildPreviewProps> = ({ child, size = 300 })
       if (!ctx) return;
 
       ctx.clearRect(0, 0, size, size);
+      ctx.globalCompositeOperation = 'source-over';
 
-      // Order: eyes → body → hair
-      if (eyeImg)  ctx.drawImage(eyeImg,  0, 0, size, size);
-      if (bodyImg) {
-        ctx.drawImage(bodyImg, 0, 0, size, size);
-        // Apply skin tone tint using multiply blend
-        ctx.globalCompositeOperation = 'multiply';
-        ctx.fillStyle = '#D3936F';
-        ctx.fillRect(0, 0, size, size);
-        ctx.globalCompositeOperation = 'destination-in';
-        ctx.drawImage(bodyImg, 0, 0, size, size);
-        ctx.globalCompositeOperation = 'source-over';
-        // Redraw body on top to restore details
-        ctx.drawImage(bodyImg, 0, 0, size, size);
-      }
+      // Layer order: eyes first → tinted body → hair
+      if (eyeImg)  ctx.drawImage(eyeImg, 0, 0, size, size);
+      if (bodyImg) applyTintedBody(ctx, bodyImg, size, skinColor);
       if (hairImg) ctx.drawImage(hairImg, 0, 0, size, size);
 
       setRendered(combo);
     });
-  }, [child.gender, child.eyeColor, child.hairStyle, size, bodyUrl, eyeUrl, hairUrl, rendered]);
+  }, [child.gender, child.eyeColor, child.hairStyle, size, gender, eyeFile, hairFile, bodyUrl, boyBodyUrl, eyeUrl, hairUrl, rendered]);
 
   return (
     <canvas
