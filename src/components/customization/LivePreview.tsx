@@ -45,13 +45,9 @@ const BookCover = ({ showDogImage = true }: { showDogImage?: boolean }) => {
           </div>
         </div>
 
-        {hasDog ? (
+        {hasDog && (
           <div className="w-full rounded-xl bg-white overflow-hidden flex items-center justify-center" style={{ minHeight: 110 }}>
             <DogPreview dog={dogs[0]} size={110} />
-          </div>
-        ) : (
-          <div className="w-full rounded-xl bg-white/5 border border-white/10 flex items-center justify-center" style={{ minHeight: 110 }}>
-            <PawPrint className="w-10 h-10 text-white/10" />
           </div>
         )}
 
