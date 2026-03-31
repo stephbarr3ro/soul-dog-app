@@ -91,7 +91,18 @@ export const ChildPreview: React.FC<ChildPreviewProps> = ({ child, size = 300 })
 
       // Order: eyes → body → hair
       if (eyeImg)  ctx.drawImage(eyeImg,  0, 0, size, size);
-      if (bodyImg) ctx.drawImage(bodyImg, 0, 0, size, size);
+      if (bodyImg) {
+        ctx.drawImage(bodyImg, 0, 0, size, size);
+        // Apply skin tone tint using multiply blend
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.fillStyle = '#D3936F';
+        ctx.fillRect(0, 0, size, size);
+        ctx.globalCompositeOperation = 'destination-in';
+        ctx.drawImage(bodyImg, 0, 0, size, size);
+        ctx.globalCompositeOperation = 'source-over';
+        // Redraw body on top to restore details
+        ctx.drawImage(bodyImg, 0, 0, size, size);
+      }
       if (hairImg) ctx.drawImage(hairImg, 0, 0, size, size);
 
       setRendered(combo);
