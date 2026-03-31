@@ -17,8 +17,9 @@
 }
 
 @layer base {
-  body {
+  html, body {
   overflow-x: hidden;
+  max-width: 100vw;
     @apply bg-cream text-dark font-sans;
   }
   h1, h2, h3, h4, h5, h6 {
