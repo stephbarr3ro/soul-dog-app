@@ -51,8 +51,8 @@ export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child,
 
   return (
     <div style={{ position: 'relative', width: size, height: size, maxWidth: '100%', margin: '0 auto' }}>
-      <img src={eyeUrl}  alt="eyes" style={{ ...layer, zIndex: 10 }} />
-      <img src={bodyUrl} alt="body" style={{ ...layer, zIndex: 20 }} />
+      <img src={bodyUrl} alt="body" style={{ ...layer, zIndex: 10 }} />
+      <img src={eyeUrl}  alt="eyes" style={{ ...layer, zIndex: 20 }} />
       <img src={hairUrl} alt="hair" style={{ ...layer, zIndex: 30 }} />
     </div>
   );
