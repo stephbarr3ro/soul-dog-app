@@ -75,6 +75,7 @@ const Header = () => {
             <Link
               key={link.name}
               to={link.path}
+              onClick={(e) => handleNavClick(e, link.path)}
               className={cn(
                 "hover:text-navy transition-all relative group py-2",
                 location.pathname === link.path && "text-navy"
@@ -134,8 +135,7 @@ const Header = () => {
                 >
                   <Link
                     to={link.path}
-                    onClick={(e) => handleNavClick(e, link.path)}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => { handleNavClick(e, link.path); setIsOpen(false); }}
                     className="text-left text-4xl font-display text-navy hover:text-gold transition-colors block"
                   >
                     {link.name}
