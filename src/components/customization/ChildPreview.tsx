@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Child } from '@/src/store/useCustomizationStore';
 
 const CDN = '/children';
@@ -34,18 +34,7 @@ const HAIR_MAP: Record<string, Record<string, string>> = {
   },
 };
 
-const EYE_MAP: Record<string, string> = {
-  'Brown':      'brown.webp',
-  'Dark Brown': 'dark-brown.webp',
-  'Amber':      'amber.webp',
-  'Hazel':      'hazel.webp',
-  'Green':      'green.webp',
-  'Blue':       'blue.webp',
-  'Gray':       'gray.webp',
-  'Black':      'black.webp',
-};
-
-function preloadImage(src: string): Promise<HTMLImageElement | null> {
+function load(src: string): Promise<HTMLImageElement | null> {
   return new Promise((resolve) => {
     const img = new window.Image();
     img.onload = () => resolve(img);
@@ -56,43 +45,37 @@ function preloadImage(src: string): Promise<HTMLImageElement | null> {
 
 export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child, size = 300 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [rendered, setRendered] = useState('');
-  const pendingRef = useRef('');
+  const abortRef  = useRef(false);
 
   const gender   = child.gender === 'Boy' ? 'boy' : 'girl';
   const bodyUrl  = `${CDN}/body/${gender}.webp`;
-  const eyeFile  = EYE_MAP[child.eyeColor] || 'brown.webp';
-  const eyeUrl   = `${CDN}/eyes/${eyeFile}`;
+  const eyeUrl   = `${CDN}/eyes/brown.webp`;
   const hairFile = HAIR_MAP[gender][child.hairStyle] || Object.values(HAIR_MAP[gender])[0];
   const hairUrl  = `${CDN}/hair/${gender}/${hairFile}`;
 
   useEffect(() => {
-    const combo = `${gender}|${eyeFile}|${hairFile}`;
-    if (rendered === combo) return;
-    pendingRef.current = combo;
+    abortRef.current = false;
 
     Promise.all([
-      preloadImage(eyeUrl),
-      preloadImage(bodyUrl).then(img => img || preloadImage(`${CDN}/body/boy.webp`)),
-      preloadImage(hairUrl),
+      load(eyeUrl),
+      load(bodyUrl).then(img => img || load(`${CDN}/body/boy.webp`)),
+      load(hairUrl),
     ]).then(([eyeImg, bodyImg, hairImg]) => {
-      if (pendingRef.current !== combo) return;
+      if (abortRef.current) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
       ctx.clearRect(0, 0, size, size);
-      ctx.globalCompositeOperation = 'source-over';
 
-      // Layer order: eyes → body → hair — no tinting, images have correct colors
       if (eyeImg)  ctx.drawImage(eyeImg,  0, 0, size, size);
       if (bodyImg) ctx.drawImage(bodyImg, 0, 0, size, size);
       if (hairImg) ctx.drawImage(hairImg, 0, 0, size, size);
-
-      setRendered(combo);
     });
-  }, [child.gender, child.eyeColor, child.hairStyle, size, gender, eyeFile, hairFile, bodyUrl, eyeUrl, hairUrl, rendered]);
+
+    return () => { abortRef.current = true; };
+  }, [child.gender, child.hairStyle, size, gender, bodyUrl, eyeUrl, hairUrl]);
 
   return (
     <canvas
