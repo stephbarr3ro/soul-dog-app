@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 
 const Hero = () => (
-  <section className="relative min-h-[85vh] md:min-h-screen bg-cream flex items-center pt-24 pb-20 md:pt-32 md:pb-32 overflow-hidden">
+  <section className="relative min-h-[85vh] md:min-h-screen bg-cream flex items-center pt-16 pb-20 md:pt-20 md:pb-32 overflow-hidden">
     {/* Decorative Elements */}
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <motion.div 
