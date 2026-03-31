@@ -292,10 +292,8 @@ export const Collections = () => (
           className="group"
         >
           <div className="relative aspect-[4/5] bg-cream rounded-[1.5rem] md:rounded-[2rem] overflow-hidden mb-6 md:mb-8 border border-navy/5 transition-transform duration-700 group-hover:scale-[1.02]">
-            <div className="absolute inset-0 bg-gradient-to-br from-navy/5 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <BookOpen className="w-24 h-24 md:w-32 md:h-32 text-navy/5" />
-            </div>
+            <img src="/classic-cover.webp" alt="Classic Edition" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
             <div className="absolute top-6 left-6 md:top-8 md:left-8">
               <span className="px-3 py-1.5 md:px-4 md:py-2 bg-navy text-cream text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">
                 The Original
@@ -330,10 +328,8 @@ export const Collections = () => (
           className="group"
         >
           <div className="relative aspect-[4/5] bg-navy rounded-[1.5rem] md:rounded-[2rem] overflow-hidden mb-6 md:mb-8 border border-white/5 transition-transform duration-700 group-hover:scale-[1.02]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/20 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Sparkles className="w-24 h-24 md:w-32 md:h-32 text-gold/10" />
-            </div>
+            <img src="/truelikeness-cover.webp" alt="True Likeness Edition" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
             <div className="absolute top-6 right-6 md:top-8 md:right-8">
               <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gold text-cream text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">
                 <Star className="w-3 h-3 fill-current" />
