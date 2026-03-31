@@ -5,7 +5,7 @@ import { cn } from '@/src/lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 
 const Logo = ({ className, light = false }: { className?: string; light?: boolean }) => (
-  <Link to="/" className={cn("flex items-center gap-2 group", className)}>
+  <Link to="/" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={cn("flex items-center gap-2 group", className)}>
     <img 
       src="https://assets.cdn.filesafe.space/JF29jtnubhqtdPivD9K0/media/69c2fb89eaed0641ffa6a9f1.svg" 
       alt="Soul Dog Stories Logo" 
@@ -29,6 +29,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleNavClick = (e: React.MouseEvent, path: string) => {
+    if (path === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     if (path.startsWith('/#')) {
       e.preventDefault();
       const id = path.replace('/#', '');
