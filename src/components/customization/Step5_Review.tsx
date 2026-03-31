@@ -31,9 +31,6 @@ export const Step5_Review = () => {
       </div>
       
       <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-navy/5 border border-gray-100 relative overflow-hidden group">
-        <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity duration-1000">
-          <ShoppingBag className="w-40 h-40" />
-        </div>
 
         <div className="space-y-2 mb-12 relative z-10">
           <SummaryItem label="Edition" value={edition === 'classic' ? 'Classic Edition' : 'True Likeness Edition'} />
