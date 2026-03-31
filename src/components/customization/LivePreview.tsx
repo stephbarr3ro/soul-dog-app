@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 import { PawPrint, Sparkles, User } from 'lucide-react';
 import { DogPreview } from './DogPreview';
+import { ChildPreview } from './ChildPreview';
 
 const COVER_COLORS = {
   "Midnight Navy": "#1B1F3B",
@@ -101,17 +102,22 @@ const DogOnWhite = () => {
   );
 };
 
-const ChildrenPlaceholder = () => (
-  <div className="flex items-center justify-center h-full">
-    <div className="bg-white rounded-3xl shadow-2xl shadow-navy/10 p-8 flex flex-col items-center" style={{ width: 348 }}>
-      <p className="text-[9px] font-bold text-navy/30 uppercase tracking-[0.3em] mb-6">Live Preview</p>
-      <div className="flex flex-col items-center gap-4 py-10 text-navy/10">
-        <User className="w-28 h-28" />
-        <span className="text-[9px] font-bold uppercase tracking-widest text-navy/20">Your child will appear here</span>
+const ChildrenPlaceholder = () => {
+  const { children } = useCustomizationStore();
+  const child = children[0];
+  const size = 300;
+  return (
+    <div className="flex items-center justify-center h-full">
+      <div className="bg-white rounded-3xl shadow-2xl shadow-navy/10 p-6 flex flex-col items-center" style={{ width: size + 48 }}>
+        <p className="text-[9px] font-bold text-navy/30 uppercase tracking-[0.3em] mb-4">Live Preview</p>
+        <ChildPreview child={child} size={size} />
+        {child.name && (
+          <p className="text-[12px] font-display text-navy/60 italic mt-3">{child.name}</p>
+        )}
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 interface LivePreviewProps {
   className?: string;
