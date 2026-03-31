@@ -103,7 +103,7 @@ const Hero = () => (
             
             <div className="relative w-full aspect-[4/5] bg-navy rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_20px_40px_-10px_rgba(27,31,59,0.2)] md:shadow-[0_50px_100px_-20px_rgba(27,31,59,0.4)]">
               <img 
-                src="https://picsum.photos/seed/soul-dog-story/800/1000" 
+                src="/hero_cover.webp" 
                 alt="Featured Story" 
                 className="w-full h-full object-cover opacity-80"
                 referrerPolicy="no-referrer"
