@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Child } from '@/src/store/useCustomizationStore';
 
 const CDN = '/children';
@@ -34,55 +34,26 @@ const HAIR_MAP: Record<string, Record<string, string>> = {
   },
 };
 
-function load(src: string): Promise<HTMLImageElement | null> {
-  return new Promise((resolve) => {
-    const img = new window.Image();
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
-    img.src = src;
-  });
-}
+const layer: React.CSSProperties = {
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+  objectFit: 'contain',
+};
 
 export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child, size = 300 }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const abortRef  = useRef(false);
-
   const gender   = child.gender === 'Boy' ? 'boy' : 'girl';
   const bodyUrl  = `${CDN}/body/${gender}.webp`;
   const eyeUrl   = `${CDN}/eyes/brown.webp`;
   const hairFile = HAIR_MAP[gender][child.hairStyle] || Object.values(HAIR_MAP[gender])[0];
   const hairUrl  = `${CDN}/hair/${gender}/${hairFile}`;
 
-  useEffect(() => {
-    abortRef.current = false;
-
-    Promise.all([
-      load(eyeUrl),
-      load(bodyUrl).then(img => img || load(`${CDN}/body/boy.webp`)),
-      load(hairUrl),
-    ]).then(([eyeImg, bodyImg, hairImg]) => {
-      if (abortRef.current) return;
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      ctx.clearRect(0, 0, size, size);
-
-      if (eyeImg)  ctx.drawImage(eyeImg,  0, 0, size, size);
-      if (bodyImg) ctx.drawImage(bodyImg, 0, 0, size, size);
-      if (hairImg) ctx.drawImage(hairImg, 0, 0, size, size);
-    });
-
-    return () => { abortRef.current = true; };
-  }, [child.gender, child.hairStyle, size, gender, bodyUrl, eyeUrl, hairUrl]);
-
   return (
-    <canvas
-      ref={canvasRef}
-      width={size}
-      height={size}
-      style={{ display: 'block', maxWidth: '100%', margin: '0 auto' }}
-    />
+    <div style={{ position: 'relative', width: size, height: size, maxWidth: '100%', margin: '0 auto' }}>
+      <img src={eyeUrl}  alt="eyes" style={{ ...layer, zIndex: 10 }} />
+      <img src={bodyUrl} alt="body" style={{ ...layer, zIndex: 20 }} />
+      <img src={hairUrl} alt="hair" style={{ ...layer, zIndex: 30 }} />
+    </div>
   );
 };
