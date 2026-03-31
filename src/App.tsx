@@ -10,6 +10,7 @@ import { Home } from '@/src/pages/Home';
 import { Customize } from '@/src/pages/Customize';
 import { Collections } from '@/src/pages/Collections';
 import { HowItWorks } from '@/src/pages/HowItWorks';
+import { PolicyPage } from '@/src/pages/PolicyPage';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/collections" element={<Collections />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         {/* Fallback */}
+        <Route path="/policy/:page" element={<PolicyPage />} />
         <Route path="*" element={<Layout><Home /></Layout>} />
       </Routes>
     </Router>

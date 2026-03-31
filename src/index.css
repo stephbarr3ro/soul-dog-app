@@ -26,3 +26,8 @@
     @apply font-display;
   }
 }
+
+.prose-policy p { color: #1B1F3B99; font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; }
+.prose-policy h2 { color: #1B1F3B; font-family: var(--font-display, serif); font-size: 1.5rem; font-weight: 400; margin: 2rem 0 0.75rem; }
+.prose-policy a { color: #C9A84C; text-decoration: underline; }
+.prose-policy strong { color: #1B1F3B; font-weight: 600; }
