@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Dog } from '@/src/store/useCustomizationStore';
 
 const CDN = 'https://stephbarr3ro.github.io/book-assets';
@@ -44,26 +44,86 @@ const BREED_ASSETS: Record<string, {
   },
 };
 
-export const DogPreview: React.FC<{ dog: Dog; size?: number }> = ({ dog, size = 300 }) => {
+function buildUrl(folder: string, subfolder: string, file: string): string {
+  return `${CDN}/${folder}/${subfolder}/${encodeURIComponent(file)}`;
+}
+
+// Preload a single image, returns a promise
+function preloadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new window.Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error(`Failed: ${src}`));
+    img.src = src;
+  });
+}
+
+interface DogPreviewProps {
+  dog: Dog;
+  size?: number;
+}
+
+export const DogPreview: React.FC<DogPreviewProps> = ({ dog, size = 300 }) => {
   const breedData = BREED_ASSETS[dog.breed];
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Track the currently rendered combination to avoid flicker
+  const [rendered, setRendered] = useState<string>('');
+  const pendingRef = useRef<string>('');
+
+  useEffect(() => {
+    if (!breedData) return;
+
+    const furFile    = breedData.furs[dog.furColor]       || Object.values(breedData.furs)[2];
+    const eyeFile    = breedData.eyes[dog.eyeColor]       || Object.values(breedData.eyes)[0];
+    const collarFile = breedData.collars[dog.collarColor] || Object.values(breedData.collars)[7];
+
+    const eyeUrl    = buildUrl(breedData.folder, 'eye',    eyeFile);
+    const furUrl    = buildUrl(breedData.folder, 'fur',    furFile);
+    const collarUrl = buildUrl(breedData.folder, 'collar', collarFile);
+
+    const combo = `${eyeUrl}|${furUrl}|${collarUrl}`;
+
+    // Already rendered this combination
+    if (rendered === combo) return;
+
+    // Mark this as pending
+    pendingRef.current = combo;
+
+    // Load all 3 layers in parallel — only draw when ALL are ready
+    Promise.all([
+      preloadImage(eyeUrl).catch(() => null),
+      preloadImage(furUrl).catch(() => null),
+      preloadImage(collarUrl).catch(() => null),
+    ]).then(([eyeImg, furImg, collarImg]) => {
+      // If a newer request came in while loading, discard this one
+      if (pendingRef.current !== combo) return;
+
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      ctx.clearRect(0, 0, size, size);
+
+      // Draw in order: eyes (bottom) → fur → collar (top)
+      if (eyeImg)    ctx.drawImage(eyeImg,    0, 0, size, size);
+      if (furImg)    ctx.drawImage(furImg,    0, 0, size, size);
+      if (collarImg) ctx.drawImage(collarImg, 0, 0, size, size);
+
+      setRendered(combo);
+    });
+  }, [dog.furColor, dog.eyeColor, dog.collarColor, dog.breed, size, breedData, rendered]);
+
   if (!breedData) return null;
 
-  const furFile    = breedData.furs[dog.furColor]       || Object.values(breedData.furs)[2];
-  const eyeFile    = breedData.eyes[dog.eyeColor]       || Object.values(breedData.eyes)[0];
-  const collarFile = breedData.collars[dog.collarColor] || Object.values(breedData.collars)[0];
-
-  const url = (subfolder: string, file: string) =>
-    `${CDN}/${breedData.folder}/${subfolder}/${encodeURIComponent(file)}`;
-
-  const layer: React.CSSProperties = {
-    position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain',
-  };
-
   return (
-    <div style={{ position: 'relative', width: size, height: size, maxWidth: '100%', margin: '0 auto' }}>
-      <img src={url('eye', eyeFile)}    alt="eyes"   style={{ ...layer, zIndex: 10 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
-      <img src={url('fur', furFile)}    alt="fur"    style={{ ...layer, zIndex: 20 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
-      <img src={url('collar', collarFile)} alt="collar" style={{ ...layer, zIndex: 30 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
-    </div>
+    <canvas
+      ref={canvasRef}
+      width={size}
+      height={size}
+      style={{ display: 'block', maxWidth: '100%', margin: '0 auto' }}
+    />
   );
 };

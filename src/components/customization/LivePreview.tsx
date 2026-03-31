@@ -7,9 +7,9 @@ import { DogPreview } from './DogPreview';
 
 const COVER_COLORS = {
   "Midnight Navy": "#1B1F3B",
-  "Forest Green": "#2D5016",
+  "Forest Green":  "#2D5016",
   "Deep Burgundy": "#6B1B2A",
-  "Royal Purple": "#3D1A6E"
+  "Royal Purple":  "#3D1A6E"
 };
 
 const BookCover = () => {
@@ -34,7 +34,6 @@ const BookCover = () => {
             {edition === 'true-likeness' ? 'True Likeness' : 'Classic Edition'}
           </div>
         </div>
-
         <div className="space-y-2 w-full">
           <h1 className="text-xl font-display text-white leading-tight">{storyTitle || "Your Story Title"}</h1>
           <div className="flex items-center justify-center gap-3">
@@ -43,7 +42,6 @@ const BookCover = () => {
             <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-gold/40" />
           </div>
         </div>
-
         <div className="w-full rounded-xl bg-white overflow-hidden flex items-center justify-center" style={{ minHeight: 120 }}>
           {hasDog ? (
             <DogPreview dog={dogs[0]} size={120} />
@@ -51,7 +49,6 @@ const BookCover = () => {
             <div className="py-4 text-navy/10"><PawPrint className="w-10 h-10 mx-auto" /></div>
           )}
         </div>
-
         <div className="space-y-1 w-full">
           <p className="text-[8px] font-bold text-white/30 uppercase tracking-[0.2em]">Featuring</p>
           <p className="text-gold font-display text-sm italic">
@@ -63,10 +60,9 @@ const BookCover = () => {
             </p>
           )}
           {dedication && (
-            <p className="text-gold/40 text-[8px] italic mt-1 leading-relaxed px-1">{dedication}</p>
+            <p className="text-gold/40 text-[8px] italic mt-1 px-1">{dedication}</p>
           )}
         </div>
-
         <div className="w-6 h-6 rounded-full border border-white/10 flex items-center justify-center opacity-40">
           <span className="text-[8px] font-display text-white">S</span>
         </div>
@@ -76,23 +72,64 @@ const BookCover = () => {
   );
 };
 
-const DogOnWhite = () => {
+interface LivePreviewProps {
+  className?: string;
+  step?: number;
+  compact?: boolean; // for use inside the form on mobile
+}
+
+export const LivePreview = ({ className, step = 0, compact = false }: LivePreviewProps) => {
   const { dogs } = useCustomizationStore();
   const hasDog = dogs.length > 0 && dogs[0].breed === 'Golden Retriever';
+  const previewSize = compact ? 260 : 340;
 
+  // Step 0: no preview
+  if (step === 0) return null;
+
+  // Steps 3, 4, 5: show book
+  if (step === 3 || step === 4 || step === 5) {
+    return (
+      <div className={cn("flex flex-col items-center justify-center h-full relative overflow-hidden", className)}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-b from-navy/40 to-transparent opacity-50" />
+          {Array.from({ length: 8 }).map((_, i) => (
+            <motion.div key={i} animate={{ opacity: [0.1, 0.3, 0.1], y: [0, -30, 0] }} transition={{ duration: 6 + Math.random() * 8, repeat: Infinity }} className="absolute text-white/20" style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}>
+              <Sparkles className="w-3 h-3" />
+            </motion.div>
+          ))}
+        </div>
+        <div className="relative z-10 w-full flex flex-col items-center gap-8">
+          <BookCover />
+          <div className="flex items-center gap-4 px-6 py-2 rounded-full bg-white/5 border border-white/10">
+            <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Join 2,400+ happy families</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 1: children placeholder
+  if (step === 1) {
+    return (
+      <div className={cn("flex items-center justify-center h-full", className)}>
+        <div className="bg-white rounded-3xl shadow-2xl shadow-navy/10 p-8 flex flex-col items-center" style={{ width: previewSize }}>
+          <p className="text-[9px] font-bold text-navy/30 uppercase tracking-[0.3em] mb-6">Live Preview</p>
+          <div className="flex flex-col items-center gap-4 py-10 text-navy/10">
+            <User className="w-28 h-28" />
+            <span className="text-[9px] font-bold uppercase tracking-widest text-navy/20">Your child will appear here</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 2: dog compositor
   return (
-    <div className="flex flex-col items-center">
-      <div className="bg-white rounded-3xl shadow-2xl shadow-navy/10 p-6 flex flex-col items-center" style={{ width: 300 }}>
+    <div className={cn("flex items-center justify-center h-full", className)}>
+      <div className="bg-white rounded-3xl shadow-2xl shadow-navy/10 p-6 flex flex-col items-center" style={{ width: previewSize }}>
         <p className="text-[9px] font-bold text-navy/30 uppercase tracking-[0.3em] mb-4">Live Preview</p>
         {hasDog ? (
-          <motion.div
-            key={`${dogs[0].furColor}-${dogs[0].eyeColor}-${dogs[0].collarColor}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <DogPreview dog={dogs[0]} size={260} />
-          </motion.div>
+          <DogPreview dog={dogs[0]} size={previewSize - 48} />
         ) : (
           <div className="flex flex-col items-center gap-3 py-10 text-navy/10">
             <PawPrint className="w-24 h-24" />
@@ -105,64 +142,6 @@ const DogOnWhite = () => {
           <p className="text-[12px] font-display text-navy/60 italic mt-3">{dogs[0].name}</p>
         )}
       </div>
-    </div>
-  );
-};
-
-const ChildrenPlaceholder = () => (
-  <div className="flex flex-col items-center">
-    <div className="bg-white rounded-3xl shadow-2xl shadow-navy/10 p-8 flex flex-col items-center" style={{ width: 300 }}>
-      <p className="text-[9px] font-bold text-navy/30 uppercase tracking-[0.3em] mb-6">Live Preview</p>
-      <div className="flex flex-col items-center gap-4 py-8 text-navy/10">
-        <User className="w-24 h-24" />
-        <span className="text-[9px] font-bold uppercase tracking-widest text-navy/20">Your child will appear here</span>
-      </div>
-    </div>
-  </div>
-);
-
-interface LivePreviewProps {
-  className?: string;
-  step?: number;
-}
-
-export const LivePreview = ({ className, step = 0 }: LivePreviewProps) => {
-  const showDogPreview = step === 2;
-  const showChildrenPreview = step === 1;
-  const showBook = step === 0 || step === 3 || step === 4 || step === 5;
-
-  return (
-    <div className={cn("flex flex-col items-center justify-center h-full relative overflow-hidden", className)}>
-      {(showBook) && (
-        <>
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-b from-navy/40 to-transparent opacity-50" />
-            {Array.from({ length: 8 }).map((_, i) => (
-              <motion.div key={i} animate={{ opacity: [0.1, 0.3, 0.1], y: [0, -30, 0] }} transition={{ duration: 6 + Math.random() * 8, repeat: Infinity }} className="absolute text-white/20" style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}>
-                <Sparkles className="w-3 h-3" />
-              </motion.div>
-            ))}
-          </div>
-          <div className="relative z-10 w-full flex flex-col items-center">
-            <BookCover />
-            <div className="mt-8 flex items-center gap-4 px-6 py-2 rounded-full bg-white/5 border border-white/10">
-              <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Join 2,400+ happy families</p>
-            </div>
-          </div>
-        </>
-      )}
-
-      {showDogPreview && (
-        <div className="relative z-10">
-          <DogOnWhite />
-        </div>
-      )}
-
-      {showChildrenPreview && (
-        <div className="relative z-10">
-          <ChildrenPlaceholder />
-        </div>
-      )}
     </div>
   );
 };

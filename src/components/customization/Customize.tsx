@@ -110,60 +110,68 @@ export const Customize = () => {
     }
   };
 
+  const showMobilePreview = currentStep !== 0;
+
   return (
     <div className="min-h-screen bg-white flex flex-col md:flex-row">
 
       {/* LEFT — Form */}
-      <div className="w-full md:w-1/2 p-6 md:p-10 lg:p-16 overflow-y-auto max-h-screen scrollbar-hide">
+      <div className="w-full md:w-1/2 overflow-y-auto md:max-h-screen scrollbar-hide">
 
         {/* Step indicator */}
-        <div className="flex items-center gap-4 mb-12 overflow-x-auto pb-4 scrollbar-hide">
-          {STEPS.map((step, index) => (
-            <React.Fragment key={step.id}>
-              <div className="flex flex-col gap-3 min-w-[80px]">
-                <div className={cn(
-                  "h-1 rounded-full transition-all duration-700",
-                  currentStep === index ? "bg-navy w-full" :
-                  currentStep > index ? "bg-gold w-full" : "bg-gray-100 w-8"
-                )} />
-                <span className={cn(
-                  "text-[9px] font-bold uppercase tracking-[0.3em] transition-colors",
-                  currentStep === index ? "text-navy" : "text-gray-300"
-                )}>
-                  {step.label}
-                </span>
-              </div>
-            </React.Fragment>
-          ))}
+        <div className="px-6 md:px-10 lg:px-16 pt-6 md:pt-10">
+          <div className="flex items-center gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+            {STEPS.map((step, index) => (
+              <React.Fragment key={step.id}>
+                <div className="flex flex-col gap-2 min-w-[60px]">
+                  <div className={cn(
+                    "h-1 rounded-full transition-all duration-700",
+                    currentStep === index ? "bg-navy w-full" :
+                    currentStep > index ? "bg-gold w-full" : "bg-gray-100 w-6"
+                  )} />
+                  <span className={cn(
+                    "text-[9px] font-bold uppercase tracking-[0.3em] transition-colors",
+                    currentStep === index ? "text-navy" : "text-gray-300"
+                  )}>
+                    {step.label}
+                  </span>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
         </div>
 
-        {/* Step content */}
-        <div className="max-w-xl mx-auto pb-24">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              {renderStep()}
-            </motion.div>
-          </AnimatePresence>
+        {/* MOBILE: preview FIRST, then form */}
+        {showMobilePreview && (
+          <div className="md:hidden mx-6 mb-8 rounded-3xl bg-navy overflow-hidden" style={{ minHeight: 340 }}>
+            <LivePreview className="w-full py-8 px-6" step={currentStep} compact />
+          </div>
+        )}
 
-          {/* Mobile preview — inline below form */}
-          <div className="md:hidden mt-10 rounded-3xl bg-navy overflow-hidden" style={{ minHeight: 360 }}>
-            <LivePreview className="w-full py-10 px-6" step={currentStep} />
+        {/* Form content */}
+        <div className="px-6 md:px-10 lg:px-16 pb-28">
+          <div className="max-w-xl mx-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                {renderStep()}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
         {/* Navigation */}
-        <div className="fixed bottom-0 left-0 w-full md:w-1/2 bg-white/90 backdrop-blur-2xl border-t border-gray-100 p-6 flex gap-4 z-40">
-          <button onClick={handleBack} className="px-8 py-4 rounded-full border border-gray-200 font-bold text-navy/40 hover:border-navy hover:text-navy transition-all flex items-center gap-2 text-xs uppercase tracking-widest">
+        <div className="fixed bottom-0 left-0 w-full md:w-1/2 bg-white/90 backdrop-blur-2xl border-t border-gray-100 p-5 flex gap-4 z-40">
+          <button onClick={handleBack} className="px-6 py-4 rounded-full border border-gray-200 font-bold text-navy/40 hover:border-navy hover:text-navy transition-all flex items-center gap-2 text-xs uppercase tracking-widest">
             <ChevronLeft className="w-4 h-4" /> Back
           </button>
           <button onClick={handleNext} disabled={isProcessing} className={cn(
-            "flex-1 px-8 py-4 rounded-full bg-navy text-cream font-bold hover:bg-gold transition-all flex items-center justify-center gap-3 shadow-2xl text-xs uppercase tracking-widest",
+            "flex-1 px-6 py-4 rounded-full bg-navy text-cream font-bold hover:bg-gold transition-all flex items-center justify-center gap-3 shadow-2xl text-xs uppercase tracking-widest",
             isProcessing && "opacity-70 cursor-not-allowed"
           )}>
             {isProcessing ? (
@@ -177,7 +185,7 @@ export const Customize = () => {
         </div>
       </div>
 
-      {/* RIGHT — Preview (desktop only) */}
+      {/* RIGHT — Desktop preview */}
       <div className="hidden md:flex w-1/2 bg-navy items-center justify-center p-12 lg:p-24 relative overflow-hidden sticky top-0 h-screen">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/10 to-transparent" />
