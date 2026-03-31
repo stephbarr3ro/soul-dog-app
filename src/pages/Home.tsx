@@ -48,13 +48,13 @@ const Hero = () => (
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
         {/* Left Sidebar - Grouping Style */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
-          className="lg:col-span-3 space-y-4 md:space-y-6 hidden lg:block"
+          className="hidden"
         >
           <div className="flex items-center gap-2 text-navy/40 text-[10px] font-bold uppercase tracking-widest mb-4 md:mb-8">
             <span>Our Collections</span>
@@ -94,7 +94,7 @@ const Hero = () => (
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="col-span-1 lg:col-span-6 flex justify-center relative"
+          className="flex justify-center relative"
         >
           <div className="relative group w-full max-w-[280px] sm:max-w-[360px] md:max-w-[400px]">
             {/* Wavy Border Container */}
@@ -130,7 +130,7 @@ const Hero = () => (
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6 }}
-          className="lg:col-span-3 space-y-8 md:space-y-12 hidden lg:block"
+          className="space-y-6 hidden lg:block"
         >
           <div className="bg-white/50 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white shadow-xl shadow-navy/5">
             <div className="flex items-center gap-4 mb-4 md:mb-6">
