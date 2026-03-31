@@ -1,0 +1,27 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Layout } from '@/src/components/Layout';
+import { Home } from '@/src/pages/Home';
+import { Customize } from '@/src/pages/Customize';
+import { Collections } from '@/src/pages/Collections';
+import { HowItWorks } from '@/src/pages/HowItWorks';
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/customize" element={<Customize />} />
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
+        {/* Fallback */}
+        <Route path="*" element={<Layout><Home /></Layout>} />
+      </Routes>
+    </Router>
+  );
+}
