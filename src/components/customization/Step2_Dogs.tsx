@@ -19,8 +19,6 @@ const BREED_FURS: Record<string, { name: string; hex: string }[]> = {
     { name: 'Dark Golden',      hex: '#B8841A' },
     { name: 'Rich Dark Golden', hex: '#9A6A0A' },
     { name: 'Red Golden',       hex: '#C05A20' },
-    { name: 'Brown',            hex: '#7A4A1A' },
-    { name: 'Black',            hex: '#2A2018' },
   ],
   'default': [
     { name: 'White',  hex: '#FFFFFF' },
@@ -76,7 +74,7 @@ export const Step2_Dogs = () => {
           <span className="text-[10px] font-bold uppercase tracking-[0.4em]">The Companions</span>
         </div>
         <h2 className="text-5xl font-display text-navy leading-tight">
-          Customize Your <br/><span className="italic">Soul Dogs</span>
+          Customize Your <br/><span className="italic">Dogs</span>
         </h2>
         <p className="text-navy/60 text-lg leading-relaxed max-w-md">
           Capture the unique spirit of your furry best friends.
@@ -101,13 +99,11 @@ export const Step2_Dogs = () => {
               </div>
 
               <div className="grid gap-8">
-                {/* Name */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Dog's Name</label>
                   <input type="text" value={dog.name} onChange={(e) => updateDog(dog.id, { name: e.target.value })} placeholder="Enter dog's name" className="w-full p-5 rounded-2xl border border-gray-100 focus:border-gold outline-none text-navy font-medium placeholder:text-navy/20 bg-gray-50/30" />
                 </div>
 
-                {/* Breed */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Breed</label>
                   <div className="relative">
@@ -122,48 +118,41 @@ export const Step2_Dogs = () => {
                   </div>
                 </div>
 
-                {/* Fur — button grid with text label */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Fur Color</label>
                   <div className="grid grid-cols-2 gap-2">
                     {furOptions.map((color) => (
                       <button key={color.name} onClick={() => updateDog(dog.id, { furColor: color.name })}
-                        className={cn("flex items-center gap-3 p-3 rounded-2xl border transition-all text-left", dog.furColor === color.name ? "border-gold bg-gold/5 shadow-md" : "border-gray-100 hover:border-gray-200 bg-white")}
-                      >
-                        <span className="w-6 h-6 rounded-full flex-shrink-0 border border-black/10" style={{ background: color.hex }} />
+                        className={cn("flex items-center gap-3 p-3 rounded-2xl border transition-all text-left", dog.furColor === color.name ? "border-gold bg-gold/5 shadow-md" : "border-gray-100 hover:border-gray-200 bg-white")}>
+                        <span className="w-5 h-5 rounded-full flex-shrink-0 border border-black/10" style={{ background: color.hex }} />
                         <span className={cn("text-[12px] font-medium", dog.furColor === color.name ? "text-navy" : "text-navy/60")}>{color.name}</span>
                       </button>
                     ))}
                   </div>
                 </div>
 
-                {/* Eyes — swatches */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Eye Color</label>
                   <div className="flex flex-wrap gap-3">
                     {EYE_COLORS.map((color) => (
                       <button key={color.name} onClick={() => updateDog(dog.id, { eyeColor: color.name })}
                         className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.eyeColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm")}
-                        style={{ background: color.hex }} title={color.name}
-                      />
+                        style={{ background: color.hex }} title={color.name} />
                     ))}
                   </div>
                 </div>
 
-                {/* Collar — swatches */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Collar Color</label>
                   <div className="flex flex-wrap gap-3">
                     {COLLAR_COLORS.map((color) => (
                       <button key={color.name} onClick={() => updateDog(dog.id, { collarColor: color.name })}
-                        className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.collarColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm")}
-                        style={{ backgroundColor: color.hex }} title={color.name}
-                      />
+                        className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.collarColor === color.name ? "border-gold scale-110 shadow-xl" : "border-gray-200 shadow-sm")}
+                        style={{ backgroundColor: color.hex }} title={color.name} />
                     ))}
                   </div>
                 </div>
 
-                {/* Photo — SOLO True Likeness */}
                 {edition === 'true-likeness' && (
                   <div className="pt-4 space-y-3">
                     <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Reference Photo</label>
