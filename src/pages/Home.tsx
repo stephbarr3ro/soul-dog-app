@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 
 const Hero = () => (
-  <section className="relative min-h-[85vh] md:min-h-screen bg-cream flex items-center pt-16 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+  <section className="relative bg-cream flex items-center pt-10 pb-10 md:pt-14 md:pb-14 overflow-hidden">
     {/* Decorative Elements */}
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <motion.div 
@@ -32,11 +32,11 @@ const Hero = () => (
     </div>
 
     <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
-      <div className="text-center mb-8 md:mb-16">
+      <div className="text-center mb-4 md:mb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 py-2 rounded-full bg-gold/10 text-gold text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] mb-4 md:mb-8"
+          className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 py-2 rounded-full bg-gold/10 text-gold text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] mb-2 md:mb-4"
         >
           <Sparkles className="w-2.5 h-2.5" />
           The World's Most Personal Legacy
@@ -48,7 +48,7 @@ const Hero = () => (
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-center">
         {/* Left Sidebar - Grouping Style */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
