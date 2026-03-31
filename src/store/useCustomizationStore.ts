@@ -5,7 +5,7 @@ export type Edition = 'classic' | 'true-likeness';
 export interface Child {
   id: string;
   name: string;
-  gender: 'Girl' | 'Boy';
+  gender: 'Boy' | 'Boy';
   ageRange: 'Baby' | 'Toddler' | '3-5' | '6-8' | '9-12';
   skinTone: string;
   hairStyle: string;
@@ -52,10 +52,10 @@ interface CustomizationState {
 const initialChild = (id: string): Child => ({
   id,
   name: '',
-  gender: 'Girl',
-  ageRange: '3-5',
+  gender: 'Boy',
+  ageRange: '6-8',
   skinTone: 'tone-1',
-  hairStyle: 'Long & Straight',
+  hairStyle: 'Short & Straight',
   hairColor: 'Blonde',
   eyeColor: 'Blue',
   glasses: false,

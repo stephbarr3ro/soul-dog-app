@@ -102,7 +102,7 @@ export const Step1_Children = () => {
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Age Range</label>
                   <div className="relative">
                     <select value={child.ageRange} onChange={(e) => updateChild(child.id, { ageRange: e.target.value as any })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
-                      {['Baby', 'Toddler', '3-5', '6-8', '9-12'].map((a) => <option key={a} value={a}>{a}</option>)}
+                      {['3-5', '6-8', '9-12'].map((a) => <option key={a} value={a}>{a}</option>)}
                     </select>
                     <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-navy/20"><ArrowRight className="w-4 h-4 rotate-90" /></div>
                   </div>
