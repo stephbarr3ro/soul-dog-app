@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plus, Minus, Camera, Sparkles, ArrowRight } from 'lucide-react';
-import { useCustomizationStore, Dog } from '@/src/store/useCustomizationStore';
+import { useCustomizationStore } from '@/src/store/useCustomizationStore';
 import { cn } from '@/src/lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import { uploadPhoto } from '@/src/lib/supabase';
@@ -52,11 +52,11 @@ const COLLAR_COLORS = [
   { name: 'Pink',     hex: '#E91E8C' },
   { name: 'Navy',     hex: '#1A237E' },
   { name: 'Black',    hex: '#212121' },
-  { name: 'White',    hex: '#F0EDE6' },
+  { name: 'White',    hex: '#F5F5F5' },
 ];
 
 export const Step2_Dogs = () => {
-  const { dogs, addDog, removeDog, updateDog, edition, setEdition } = useCustomizationStore();
+  const { dogs, addDog, removeDog, updateDog, edition } = useCustomizationStore();
   const [isUploading, setIsUploading] = React.useState<string | null>(null);
 
   const handlePhotoUpload = async (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,144 +87,95 @@ export const Step2_Dogs = () => {
         {dogs.map((dog, index) => {
           const furOptions = BREED_FURS[dog.breed] || BREED_FURS['default'];
           return (
-            <motion.div
-              key={dog.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-navy/5 border border-gray-100 relative"
-            >
+            <motion.div key={dog.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-navy/5 border border-gray-100">
               <div className="flex justify-between items-center mb-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-navy text-cream flex items-center justify-center font-display text-lg">
-                    {index + 1}
-                  </div>
+                  <div className="w-10 h-10 rounded-full bg-navy text-cream flex items-center justify-center font-display text-lg">{index + 1}</div>
                   <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-navy/40">Dog Details</span>
                 </div>
                 {dogs.length > 1 && (
-                  <button
-                    onClick={() => removeDog(dog.id)}
-                    className="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-gray-300 hover:bg-red-50 hover:text-red-400 transition-all"
-                  >
+                  <button onClick={() => removeDog(dog.id)} className="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-gray-300 hover:bg-red-50 hover:text-red-400 transition-all">
                     <Minus className="w-4 h-4" />
                   </button>
                 )}
               </div>
 
               <div className="grid gap-8">
+                {/* Name */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Dog's Name</label>
-                  <input
-                    type="text"
-                    value={dog.name}
-                    onChange={(e) => updateDog(dog.id, { name: e.target.value })}
-                    placeholder="Enter dog's name"
-                    className="w-full p-5 rounded-2xl border border-gray-100 focus:border-gold outline-none text-navy font-medium placeholder:text-navy/20 bg-gray-50/30"
-                  />
+                  <input type="text" value={dog.name} onChange={(e) => updateDog(dog.id, { name: e.target.value })} placeholder="Enter dog's name" className="w-full p-5 rounded-2xl border border-gray-100 focus:border-gold outline-none text-navy font-medium placeholder:text-navy/20 bg-gray-50/30" />
                 </div>
 
+                {/* Breed */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Breed</label>
                   <div className="relative">
-                    <select
-                      value={dog.breed}
-                      onChange={(e) => updateDog(dog.id, {
-                        breed: e.target.value,
-                        furColor: (BREED_FURS[e.target.value] || BREED_FURS['default'])[0].name
-                      })}
-                      className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none"
-                    >
+                    <select value={dog.breed} onChange={(e) => updateDog(dog.id, { breed: e.target.value, furColor: (BREED_FURS[e.target.value] || BREED_FURS['default'])[0].name })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
                       {Object.entries(DOG_BREEDS).map(([group, breeds]) => (
                         <optgroup key={group} label={group}>
                           {breeds.map((b) => <option key={b} value={b}>{b}</option>)}
                         </optgroup>
                       ))}
                     </select>
-                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-navy/20">
-                      <ArrowRight className="w-4 h-4 rotate-90" />
-                    </div>
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-navy/20"><ArrowRight className="w-4 h-4 rotate-90" /></div>
                   </div>
                 </div>
 
+                {/* Fur — button grid with text label */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Fur Color</label>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="grid grid-cols-2 gap-2">
                     {furOptions.map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => updateDog(dog.id, { furColor: color.name })}
-                        className={cn(
-                          "w-10 h-10 rounded-full border-2 transition-all hover:scale-110",
-                          dog.furColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm"
-                        )}
-                        style={{ background: color.hex }}
-                        title={color.name}
-                      />
+                      <button key={color.name} onClick={() => updateDog(dog.id, { furColor: color.name })}
+                        className={cn("flex items-center gap-3 p-3 rounded-2xl border transition-all text-left", dog.furColor === color.name ? "border-gold bg-gold/5 shadow-md" : "border-gray-100 hover:border-gray-200 bg-white")}
+                      >
+                        <span className="w-6 h-6 rounded-full flex-shrink-0 border border-black/10" style={{ background: color.hex }} />
+                        <span className={cn("text-[12px] font-medium", dog.furColor === color.name ? "text-navy" : "text-navy/60")}>{color.name}</span>
+                      </button>
                     ))}
                   </div>
                 </div>
 
+                {/* Eyes — swatches */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Eye Color</label>
                   <div className="flex flex-wrap gap-3">
                     {EYE_COLORS.map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => updateDog(dog.id, { eyeColor: color.name })}
-                        className={cn(
-                          "w-10 h-10 rounded-full border-2 transition-all hover:scale-110",
-                          dog.eyeColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm"
-                        )}
-                        style={{ background: color.hex }}
-                        title={color.name}
+                      <button key={color.name} onClick={() => updateDog(dog.id, { eyeColor: color.name })}
+                        className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.eyeColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm")}
+                        style={{ background: color.hex }} title={color.name}
                       />
                     ))}
                   </div>
                 </div>
 
+                {/* Collar — swatches */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Collar Color</label>
                   <div className="flex flex-wrap gap-3">
                     {COLLAR_COLORS.map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => updateDog(dog.id, { collarColor: color.name })}
-                        className={cn(
-                          "w-10 h-10 rounded-full border-2 transition-all hover:scale-110",
-                          dog.collarColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm"
-                        )}
-                        style={{ backgroundColor: color.hex }}
-                        title={color.name}
+                      <button key={color.name} onClick={() => updateDog(dog.id, { collarColor: color.name })}
+                        className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.collarColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm")}
+                        style={{ backgroundColor: color.hex }} title={color.name}
                       />
                     ))}
                   </div>
                 </div>
 
+                {/* Photo — SOLO True Likeness */}
                 {edition === 'true-likeness' && (
                   <div className="pt-4 space-y-3">
                     <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Reference Photo</label>
                     <div className="relative">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handlePhotoUpload(dog.id, e)}
-                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                        disabled={isUploading === dog.id}
-                      />
-                      <div className={cn(
-                        "border-2 border-dashed rounded-[2rem] p-8 text-center transition-all group bg-gray-50/50",
-                        isUploading === dog.id ? "border-gold bg-gold/5" : "border-gray-100 hover:border-gold hover:bg-white"
-                      )}>
+                      <input type="file" accept="image/*" onChange={(e) => handlePhotoUpload(dog.id, e)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" disabled={isUploading === dog.id} />
+                      <div className={cn("border-2 border-dashed rounded-[2rem] p-8 text-center transition-all group bg-gray-50/50", isUploading === dog.id ? "border-gold" : "border-gray-100 hover:border-gold hover:bg-white")}>
                         {dog.photo ? (
                           <img src={dog.photo} alt="Preview" className="w-24 h-24 object-cover rounded-2xl shadow-xl mx-auto mb-4" />
                         ) : (
-                          <div className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center mx-auto mb-4">
-                            <Camera className="w-6 h-6 text-gold" />
-                          </div>
+                          <div className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center mx-auto mb-4"><Camera className="w-6 h-6 text-gold" /></div>
                         )}
-                        <p className="text-[11px] font-bold text-navy/40 uppercase tracking-widest">
-                          {isUploading === dog.id ? "Uploading..." : dog.photo ? "Change Photo" : "Upload Reference Photo"}
-                        </p>
+                        <p className="text-[11px] font-bold text-navy/40 uppercase tracking-widest">{isUploading === dog.id ? "Uploading..." : dog.photo ? "Change Photo" : "Upload Reference Photo"}</p>
                       </div>
                     </div>
                   </div>
@@ -236,13 +187,8 @@ export const Step2_Dogs = () => {
       </AnimatePresence>
 
       {dogs.length < 3 && (
-        <button
-          onClick={addDog}
-          className="w-full py-8 rounded-[2rem] border-2 border-dashed border-gold/20 text-gold font-bold flex items-center justify-center gap-3 hover:bg-gold/5 hover:border-gold transition-all group"
-        >
-          <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Plus className="w-5 h-5" />
-          </div>
+        <button onClick={addDog} className="w-full py-8 rounded-[2rem] border-2 border-dashed border-gold/20 text-gold font-bold flex items-center justify-center gap-3 hover:bg-gold/5 hover:border-gold transition-all group">
+          <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center group-hover:scale-110 transition-transform"><Plus className="w-5 h-5" /></div>
           <span className="uppercase tracking-[0.2em] text-[11px]">Add Another Dog</span>
         </button>
       )}
