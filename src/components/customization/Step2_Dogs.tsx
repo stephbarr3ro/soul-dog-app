@@ -13,49 +13,36 @@ const DOG_BREEDS = {
 
 const BREED_FURS: Record<string, { name: string; hex: string }[]> = {
   'Golden Retriever': [
-    { name: 'Cream',            hex: '#F5E6C8' },
-    { name: 'Light Golden',     hex: '#E8C87A' },
-    { name: 'Golden',           hex: '#D4A843' },
-    { name: 'Dark Golden',      hex: '#B8841A' },
-    { name: 'Rich Dark Golden', hex: '#9A6A0A' },
-    { name: 'Red Golden',       hex: '#C05A20' },
+    { name: 'Cream', hex: '#F5E6C8' }, { name: 'Light Golden', hex: '#E8C87A' },
+    { name: 'Golden', hex: '#D4A843' }, { name: 'Dark Golden', hex: '#B8841A' },
+    { name: 'Rich Dark Golden', hex: '#9A6A0A' }, { name: 'Red Golden', hex: '#C05A20' },
   ],
   'default': [
-    { name: 'White',  hex: '#FFFFFF' },
-    { name: 'Cream',  hex: '#F5F5DC' },
-    { name: 'Golden', hex: '#DAA520' },
-    { name: 'Brown',  hex: '#8B4513' },
-    { name: 'Black',  hex: '#1A1A1A' },
+    { name: 'White', hex: '#FFFFFF' }, { name: 'Cream', hex: '#F5F5DC' },
+    { name: 'Golden', hex: '#DAA520' }, { name: 'Brown', hex: '#8B4513' },
+    { name: 'Black', hex: '#1A1A1A' },
   ],
 };
 
 const EYE_COLORS = [
-  { name: 'Brown',      hex: '#8B5E1A' },
-  { name: 'Dark Brown', hex: '#4A2E0A' },
-  { name: 'Amber',      hex: '#C8941A' },
-  { name: 'Hazel',      hex: '#9A7830' },
-  { name: 'Green',      hex: '#4A7A2A' },
-  { name: 'Blue',       hex: '#3A6AA8' },
-  { name: 'Gray',       hex: '#6A7A88' },
-  { name: 'Black',      hex: '#1E1410' },
+  { name: 'Brown', hex: '#8B5E1A' }, { name: 'Dark Brown', hex: '#4A2E0A' },
+  { name: 'Amber', hex: '#C8941A' }, { name: 'Hazel', hex: '#9A7830' },
+  { name: 'Green', hex: '#4A7A2A' }, { name: 'Blue', hex: '#3A6AA8' },
+  { name: 'Gray', hex: '#6A7A88' }, { name: 'Black', hex: '#1E1410' },
 ];
 
 const COLLAR_COLORS = [
-  { name: 'Sky Blue', hex: '#87CEEB' },
-  { name: 'Red',      hex: '#E53935' },
-  { name: 'Green',    hex: '#43A047' },
-  { name: 'Yellow',   hex: '#FDD835' },
-  { name: 'Orange',   hex: '#FB8C00' },
-  { name: 'Purple',   hex: '#8E24AA' },
-  { name: 'Pink',     hex: '#E91E8C' },
-  { name: 'Navy',     hex: '#1A237E' },
-  { name: 'Black',    hex: '#212121' },
-  { name: 'White',    hex: '#F5F5F5' },
+  { name: 'Sky Blue', hex: '#87CEEB' }, { name: 'Red', hex: '#E53935' },
+  { name: 'Green', hex: '#43A047' }, { name: 'Yellow', hex: '#FDD835' },
+  { name: 'Orange', hex: '#FB8C00' }, { name: 'Purple', hex: '#8E24AA' },
+  { name: 'Pink', hex: '#E91E8C' }, { name: 'Navy', hex: '#1A237E' },
+  { name: 'Black', hex: '#212121' }, { name: 'White', hex: '#F5F5F5' },
 ];
 
 export const Step2_Dogs = () => {
   const { dogs, addDog, removeDog, updateDog, edition } = useCustomizationStore();
   const [isUploading, setIsUploading] = React.useState<string | null>(null);
+  const isTrueLikeness = edition === 'true-likeness';
 
   const handlePhotoUpload = async (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -73,11 +60,11 @@ export const Step2_Dogs = () => {
           <Sparkles className="w-5 h-5" />
           <span className="text-[10px] font-bold uppercase tracking-[0.4em]">The Companions</span>
         </div>
-        <h2 className="text-5xl font-display text-navy leading-tight">
-          Customize Your <br/><span className="italic">Dogs</span>
-        </h2>
+        <h2 className="text-5xl font-display text-navy leading-tight">Customize Your <br/><span className="italic">Dogs</span></h2>
         <p className="text-navy/60 text-lg leading-relaxed max-w-md">
-          Capture the unique spirit of your furry best friends.
+          {isTrueLikeness
+            ? "Upload a photo of your dog and our artists will hand-draw them perfectly."
+            : "Capture the unique spirit of your furry best friends."}
         </p>
       </div>
 
@@ -99,11 +86,13 @@ export const Step2_Dogs = () => {
               </div>
 
               <div className="grid gap-8">
+                {/* Name */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Dog's Name</label>
                   <input type="text" value={dog.name} onChange={(e) => updateDog(dog.id, { name: e.target.value })} placeholder="Enter dog's name" className="w-full p-5 rounded-2xl border border-gray-100 focus:border-gold outline-none text-navy font-medium placeholder:text-navy/20 bg-gray-50/30" />
                 </div>
 
+                {/* Breed */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Breed</label>
                   <div className="relative">
@@ -118,30 +107,7 @@ export const Step2_Dogs = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Fur Color</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {furOptions.map((color) => (
-                      <button key={color.name} onClick={() => updateDog(dog.id, { furColor: color.name })}
-                        className={cn("flex items-center gap-3 p-3 rounded-2xl border transition-all text-left", dog.furColor === color.name ? "border-gold bg-gold/5 shadow-md" : "border-gray-100 hover:border-gray-200 bg-white")}>
-                        <span className="w-5 h-5 rounded-full flex-shrink-0 border border-black/10" style={{ background: color.hex }} />
-                        <span className={cn("text-[12px] font-medium", dog.furColor === color.name ? "text-navy" : "text-navy/60")}>{color.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Eye Color</label>
-                  <div className="flex flex-wrap gap-3">
-                    {EYE_COLORS.map((color) => (
-                      <button key={color.name} onClick={() => updateDog(dog.id, { eyeColor: color.name })}
-                        className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.eyeColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm")}
-                        style={{ background: color.hex }} title={color.name} />
-                    ))}
-                  </div>
-                </div>
-
+                {/* Collar — always shown */}
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Collar Color</label>
                   <div className="flex flex-wrap gap-3">
@@ -153,7 +119,36 @@ export const Step2_Dogs = () => {
                   </div>
                 </div>
 
-                {edition === 'true-likeness' && (
+                {/* CLASSIC ONLY: Fur + Eye color */}
+                {!isTrueLikeness && (
+                  <>
+                    <div className="space-y-3">
+                      <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Fur Color</label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {furOptions.map((color) => (
+                          <button key={color.name} onClick={() => updateDog(dog.id, { furColor: color.name })}
+                            className={cn("flex items-center gap-3 p-3 rounded-2xl border transition-all text-left", dog.furColor === color.name ? "border-gold bg-gold/5 shadow-md" : "border-gray-100 hover:border-gray-200 bg-white")}>
+                            <span className="w-5 h-5 rounded-full flex-shrink-0 border border-black/10" style={{ background: color.hex }} />
+                            <span className={cn("text-[12px] font-medium", dog.furColor === color.name ? "text-navy" : "text-navy/60")}>{color.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Eye Color</label>
+                      <div className="flex flex-wrap gap-3">
+                        {EYE_COLORS.map((color) => (
+                          <button key={color.name} onClick={() => updateDog(dog.id, { eyeColor: color.name })}
+                            className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.eyeColor === color.name ? "border-gold scale-110 shadow-xl" : "border-white shadow-sm")}
+                            style={{ background: color.hex }} title={color.name} />
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Photo — True Likeness only */}
+                {isTrueLikeness && (
                   <div className="pt-4 space-y-3">
                     <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Reference Photo</label>
                     <div className="relative">
@@ -165,6 +160,7 @@ export const Step2_Dogs = () => {
                           <div className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center mx-auto mb-4"><Camera className="w-6 h-6 text-gold" /></div>
                         )}
                         <p className="text-[11px] font-bold text-navy/40 uppercase tracking-widest">{isUploading === dog.id ? "Uploading..." : dog.photo ? "Change Photo" : "Upload Reference Photo"}</p>
+                        <p className="text-[10px] text-navy/20 mt-2 uppercase tracking-widest">JPG, PNG up to 10MB</p>
                       </div>
                     </div>
                   </div>
