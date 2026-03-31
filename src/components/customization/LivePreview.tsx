@@ -53,12 +53,8 @@ const BookCover = () => {
           <p className="text-[8px] font-bold text-white/30 uppercase tracking-[0.2em]">Featuring</p>
           <p className="text-gold font-display text-sm italic">
             {children.length > 0 && children[0].name ? children.map(c => c.name).join(' & ') : "Your child's name"}
+            {dogs.length > 0 && dogs[0].name ? ' & ' + dogs.map(d => d.name || '...').join(' & ') : ''}
           </p>
-          {dogs.length > 0 && (
-            <p className="text-gold/70 font-display text-sm italic">
-              & {dogs.map(d => d.name || '...').join(' & ')}
-            </p>
-          )}
           {dedication && (
             <p className="text-gold/40 text-[8px] italic mt-1 px-1">{dedication}</p>
           )}
