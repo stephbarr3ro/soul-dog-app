@@ -42,7 +42,7 @@ const Hero = () => (
           The World's Most Personal Legacy
         </motion.div>
         
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display text-navy leading-[1.1] md:leading-[0.9] tracking-tight max-w-4xl mx-auto text-balance">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl font-display text-navy leading-[1.1] md:leading-[0.9] tracking-tight max-w-4xl mx-auto text-balance">
           The Story That <br />
           <span className="italic font-normal text-gold">Lasts Forever.</span>
         </h1>
