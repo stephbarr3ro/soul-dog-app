@@ -355,12 +355,48 @@ const FromRealToForever = () => (
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
+      {/* Mobile: swipeable carousel */}
+      <div className="md:hidden overflow-x-auto snap-x snap-mandatory flex gap-4 pb-4 -mx-6 px-6 scrollbar-hide">
+        {/* Slide 1 — Real */}
+        <div className="snap-center flex-shrink-0 w-[80vw] relative group">
+          <div className="relative rounded-[1.5rem] overflow-hidden shadow-2xl shadow-navy/10 aspect-[4/5]">
+            <img src="/kid-dog.jpg" alt="Real life photo" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/20 backdrop-blur-md rounded-full border border-white/20">
+                <div className="w-2 h-2 rounded-full bg-white" />
+                <span className="text-[9px] font-bold text-white uppercase tracking-widest">Your Real Moment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Arrow slide */}
+        <div className="snap-center flex-shrink-0 w-12 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-gold shadow-xl flex items-center justify-center">
+            <ChevronRight className="w-5 h-5 text-white" />
+          </div>
+        </div>
+        {/* Slide 2 — Illustrated */}
+        <div className="snap-center flex-shrink-0 w-[80vw] relative group">
+          <div className="relative rounded-[1.5rem] overflow-hidden shadow-2xl shadow-gold/10 aspect-[4/5]">
+            <img src="/kid-dog-illustration.jpg" alt="Illustrated story" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gold/90 backdrop-blur-md rounded-full">
+                <Sparkles className="w-3 h-3 text-white" />
+                <span className="text-[9px] font-bold text-white uppercase tracking-widest">Hand-Illustrated Forever</span>
+              </div>
+              <p className="text-white/80 text-[10px] leading-relaxed">Premium hardcover • Artist-crafted • Museum quality</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        {/* Real photo */}
+      {/* Desktop: side by side */}
+      <div className="hidden md:grid grid-cols-2 gap-6 md:gap-8 items-center">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative group">
           <div className="absolute -inset-1 border-2 border-navy/5 rounded-[2rem] rotate-[-1deg] group-hover:rotate-0 transition-transform duration-700" />
-          <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl shadow-navy/10 aspect-[4/5]">
+          <div className="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-navy/10 aspect-[4/5]">
             <img src="/kid-dog.jpg" alt="Real life photo" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
@@ -371,15 +407,12 @@ const FromRealToForever = () => (
             </div>
           </div>
         </motion.div>
-
-        {/* Arrow + illustrated */}
         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="relative group">
-          {/* Arrow between photos on desktop */}
           <div className="hidden md:flex absolute -left-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-gold shadow-xl items-center justify-center">
             <ChevronRight className="w-5 h-5 text-white" />
           </div>
           <div className="absolute -inset-1 border-2 border-gold/20 rounded-[2rem] rotate-[1deg] group-hover:rotate-0 transition-transform duration-700" />
-          <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl shadow-gold/10 aspect-[4/5]">
+          <div className="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-gold/10 aspect-[4/5]">
             <img src="/kid-dog-illustration.jpg" alt="Illustrated story" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 space-y-2">
@@ -387,13 +420,10 @@ const FromRealToForever = () => (
                 <Sparkles className="w-3 h-3 text-white" />
                 <span className="text-[9px] font-bold text-white uppercase tracking-widest">Hand-Illustrated Forever</span>
               </div>
-              <p className="text-white/80 text-[10px] leading-relaxed">
-                Premium hardcover • Artist-crafted • Museum quality
-              </p>
+              <p className="text-white/80 text-[10px] leading-relaxed">Premium hardcover • Artist-crafted • Museum quality</p>
             </div>
           </div>
         </motion.div>
-
       </div>
 
       {/* Bottom callouts */}
@@ -667,11 +697,11 @@ export const Home = () => (
     <Hero />
     <AsSeenOn />
     <TherapistSection />
-    <FromRealToForever />
     <StoryBehind />
     <Features />
     <Collections />
     <HowItWorks />
+    <FromRealToForever />
     <Reviews />
     <FinalCTA />
   </div>
