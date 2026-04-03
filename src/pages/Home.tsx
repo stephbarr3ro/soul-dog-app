@@ -210,7 +210,7 @@ const AsSeenOn = () => (
     <div className="max-w-5xl mx-auto mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0 }}
         className="flex items-center gap-4 px-5 py-4 bg-white rounded-2xl shadow-sm border border-navy/5">
-        <div className="w-14 h-10 rounded-xl flex items-center justify-center p-1 flex-shrink-0 bg-black">
+        <div className="w-20 h-12 rounded-xl flex items-center justify-center p-1.5 flex-shrink-0 bg-black">
           <img src="https://elaynefluker.com/wp-content/uploads/2021/09/ABC-Nightline-Website-Logo.png" alt="ABC Nightline" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
         </div>
         <div>
