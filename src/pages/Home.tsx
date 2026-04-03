@@ -337,6 +337,84 @@ const TherapistSection = () => (
   </section>
 );
 
+
+const FromRealToForever = () => (
+  <section className="py-16 md:py-24 px-6 md:px-12 bg-white overflow-hidden">
+    <div className="max-w-6xl mx-auto">
+
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12 md:mb-16 space-y-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20">
+          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-gold">The Transformation</span>
+        </div>
+        <h2 className="text-3xl md:text-5xl font-display text-navy leading-tight">
+          From your real life <br className="hidden md:block" />
+          <span className="italic text-gold">to a story that lives forever.</span>
+        </h2>
+        <p className="text-navy/60 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          Every book is hand-illustrated by professional artists — transforming your real family and dog into a timeless, museum-quality story your child will cherish for life.
+        </p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
+
+        {/* Real photo */}
+        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative group">
+          <div className="absolute -inset-1 border-2 border-navy/5 rounded-[2rem] rotate-[-1deg] group-hover:rotate-0 transition-transform duration-700" />
+          <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl shadow-navy/10 aspect-[4/5]">
+            <img src="/kid-dog.jpg" alt="Real life photo" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/20 backdrop-blur-md rounded-full border border-white/20">
+                <div className="w-2 h-2 rounded-full bg-white" />
+                <span className="text-[9px] font-bold text-white uppercase tracking-widest">Your Real Moment</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Arrow + illustrated */}
+        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="relative group">
+          {/* Arrow between photos on desktop */}
+          <div className="hidden md:flex absolute -left-8 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-gold shadow-xl items-center justify-center">
+            <ChevronRight className="w-5 h-5 text-white" />
+          </div>
+          <div className="absolute -inset-1 border-2 border-gold/20 rounded-[2rem] rotate-[1deg] group-hover:rotate-0 transition-transform duration-700" />
+          <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl shadow-gold/10 aspect-[4/5]">
+            <img src="/hero_cover.webp" alt="Illustrated story" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gold/90 backdrop-blur-md rounded-full">
+                <Sparkles className="w-3 h-3 text-white" />
+                <span className="text-[9px] font-bold text-white uppercase tracking-widest">Hand-Illustrated Forever</span>
+              </div>
+              <p className="text-white/80 text-[10px] leading-relaxed">
+                Premium hardcover • Artist-crafted • Museum quality
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+      </div>
+
+      {/* Bottom callouts */}
+      <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-4">
+        {[
+          { title: "Real Artists", desc: "Every illustration crafted by hand — never AI-generated." },
+          { title: "Your Exact Family", desc: "Your child, your dog, your colors, your story." },
+          { title: "Printed to Last", desc: "Premium hardcover that survives generations." },
+        ].map((item, i) => (
+          <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+            className="p-5 rounded-2xl bg-cream border border-navy/5">
+            <p className="text-[11px] font-bold text-navy uppercase tracking-wider mb-1">{item.title}</p>
+            <p className="text-navy/50 text-sm leading-relaxed">{item.desc}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 const StoryBehind = () => (
   <section className="py-16 md:py-24 px-6 md:px-12 bg-navy relative overflow-hidden">
     <div className="absolute inset-0 opacity-10">
@@ -590,6 +668,7 @@ export const Home = () => (
     <Hero />
     <AsSeenOn />
     <TherapistSection />
+    <FromRealToForever />
     <StoryBehind />
     <Features />
     <Collections />
