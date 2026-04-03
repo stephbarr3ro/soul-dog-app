@@ -268,7 +268,7 @@ const AsSeenOn = () => (
           transition={{ delay: 0.3 }}
           className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-2xl shadow-navy/20 flex items-center justify-center p-3 border-4 border-white" style={{ background: '#FBF6F0' }}
         >
-          <img src="https://assets.cdn.filesafe.space/JF29jtnubhqtdPivD9K0/media/69c2ffa2fe4d0dd24ad44d58.png" alt="ABC News Live" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
+          <img src="https://elaynefluker.com/wp-content/uploads/2021/09/ABC-Nightline-Website-Logo.png" alt="ABC Nightline" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
         </motion.div>
       </div>
     </div>
