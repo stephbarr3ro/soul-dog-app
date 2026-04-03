@@ -210,12 +210,11 @@ const AsSeenOn = () => (
     <div className="max-w-5xl mx-auto mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0 }}
         className="flex items-center gap-4 px-5 py-4 bg-white rounded-2xl shadow-sm border border-navy/5">
-        <div className="w-20 h-12 rounded-xl flex items-center justify-center p-1.5 flex-shrink-0 bg-black">
-          <img src="/abc-horizontal.webp" alt="ABC Nightline" className="w-full h-auto object-contain" />
-        </div>
-        <div>
-          <p className="text-[10px] font-bold text-navy uppercase tracking-wider">As Seen on ABC</p>
-          <p className="text-[9px] text-navy/50 uppercase tracking-widest">Nightline</p>
+        <div className="flex flex-col items-center gap-2 w-full">
+          <p className="text-[9px] font-bold text-navy/40 uppercase tracking-[0.3em]">As Seen On</p>
+          <div className="w-32 h-10 flex items-center justify-center p-1.5 rounded-xl bg-white border border-gray-100">
+            <img src="/abc-horizontal.webp" alt="ABC Nightline" className="w-full h-auto object-contain" />
+          </div>
         </div>
       </motion.div>
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
