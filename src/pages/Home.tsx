@@ -330,13 +330,7 @@ const TherapistSection = () => (
               We are currently collecting endorsements from licensed therapists. Reach out if you'd like to be featured.
             </p>
           </div>
-          
-            href="mailto:hello@souldogstories.com"
-            className="inline-flex items-center gap-3 px-6 py-3 bg-gold text-cream font-bold rounded-full hover:bg-white hover:text-navy transition-all text-xs uppercase tracking-widest"
-          >
-            hello@souldogstories.com
-            <ChevronRight className="w-4 h-4" />
-          </a>
+          <a href="mailto:hello@souldogstories.com" className="inline-flex items-center gap-3 px-6 py-3 bg-gold text-cream font-bold rounded-full hover:bg-white hover:text-navy transition-all text-xs uppercase tracking-widest">hello@souldogstories.com <ChevronRight className="w-4 h-4" /></a>
         </div>
       </motion.div>
     </div>
