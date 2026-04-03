@@ -275,6 +275,44 @@ const AsSeenOn = () => (
   </section>
 );
 
+
+const StoryBehind = () => (
+  <section className="py-16 md:py-24 px-6 md:px-12 bg-navy relative overflow-hidden">
+    <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_var(--tw-gradient-stops))] from-gold/30 to-transparent" />
+    </div>
+    <div className="max-w-3xl mx-auto text-center relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="space-y-6 md:space-y-8"
+      >
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20">
+          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-gold">The Story Behind Every Book</span>
+        </div>
+        <h2 className="text-3xl md:text-5xl font-display text-cream leading-tight">
+          "When they ask you <span className="italic text-gold">'Where did our dog go?'</span> — this is your answer."
+        </h2>
+        <p className="text-cream/60 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          Soul Dog Stories turns the hardest conversation into a healing one. A personalized hardcover book crafted entirely around your family and your dog — so the love story never ends.
+        </p>
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
+          <Link
+            to="/customize"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-cream font-bold rounded-full hover:bg-white hover:text-navy transition-all shadow-xl text-sm uppercase tracking-widest"
+          >
+            Create Their Book
+            <ChevronRight className="w-4 h-4" />
+          </Link>
+        </motion.div>
+      </motion.div>
+    </div>
+  </section>
+);
+
 const Features = () => (
   <section className="py-20 md:py-32 px-6 md:px-12 bg-cream relative overflow-hidden">
     <div className="max-w-7xl mx-auto relative z-10">
@@ -490,6 +528,7 @@ export const Home = () => (
   <div className="bg-white">
     <Hero />
     <AsSeenOn />
+    <StoryBehind />
     <Features />
     <Collections />
     <HowItWorks />
