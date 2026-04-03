@@ -211,7 +211,7 @@ const AsSeenOn = () => (
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0 }}
         className="flex items-center gap-4 px-5 py-4 bg-white rounded-2xl shadow-sm border border-navy/5">
         <div className="w-20 h-12 rounded-xl flex items-center justify-center p-1.5 flex-shrink-0 bg-black">
-          <img src="https://elaynefluker.com/wp-content/uploads/2021/09/ABC-Nightline-Website-Logo.png" alt="ABC Nightline" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
+          <img src="/abc-horizontal.webp" alt="ABC Nightline" className="w-full h-auto object-contain" />
         </div>
         <div>
           <p className="text-[10px] font-bold text-navy uppercase tracking-wider">As Seen on ABC</p>
@@ -268,7 +268,7 @@ const AsSeenOn = () => (
           transition={{ delay: 0.3 }}
           className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-2xl shadow-navy/20 flex items-center justify-center p-3 border-4 border-white" style={{ background: '#FBF6F0' }}
         >
-          <img src="https://elaynefluker.com/wp-content/uploads/2021/09/ABC-Nightline-Website-Logo.png" alt="ABC Nightline" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
+          <img src="/abc-horizontal.webp" alt="ABC Nightline" className="w-full h-auto object-contain" />
         </motion.div>
       </div>
     </div>
@@ -381,7 +381,7 @@ const FromRealToForever = () => (
           </div>
           <div className="absolute -inset-1 border-2 border-gold/20 rounded-[2rem] rotate-[1deg] group-hover:rotate-0 transition-transform duration-700" />
           <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl shadow-gold/10 aspect-[4/5]">
-            <img src="/hero_cover.webp" alt="Illustrated story" className="w-full h-full object-cover" />
+            <img src="/kid-dog-illustration.jpg" alt="Illustrated story" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gold/90 backdrop-blur-md rounded-full">
