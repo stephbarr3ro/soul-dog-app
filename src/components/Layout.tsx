@@ -62,7 +62,7 @@ const Header = () => {
       <div className="bg-navy text-cream py-2 px-4 flex justify-center items-center gap-4 text-[9px] font-bold tracking-[0.4em] uppercase border-b border-white/5 overflow-hidden">
         <div className="flex items-center gap-4">
           <Sparkles className="w-3 h-3 text-gold" />
-          <span>The World's Most Personal Legacy</span>
+          <span>THE ONLY BOOK WRITTEN SPECIFICALLY FOR YOUR CHILD'S GRIEF</span>
           <Sparkles className="w-3 h-3 text-gold" />
         </div>
       </div>

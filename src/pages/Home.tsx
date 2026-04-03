@@ -39,12 +39,12 @@ const Hero = () => (
           className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 py-2 rounded-full bg-gold/10 text-gold text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] mb-2 md:mb-4"
         >
           <Sparkles className="w-2.5 h-2.5" />
-          The World's Most Personal Legacy
+          THE ONLY BOOK WRITTEN SPECIFICALLY FOR YOUR CHILD'S GRIEF
         </motion.div>
         
         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl font-display text-navy leading-[1.1] md:leading-[0.9] tracking-tight max-w-4xl mx-auto text-balance">
-          The Story That <br />
-          <span className="italic font-normal text-gold">Lasts Forever.</span>
+          When Words Aren't Enough, <br />
+          <span className="italic font-normal text-gold">Give Them This.</span>
         </h1>
       </div>
 
@@ -143,14 +143,14 @@ const Hero = () => (
               </div>
             </div>
             <p className="text-[11px] md:text-xs text-navy/60 leading-relaxed italic mb-4 md:mb-6">
-              "The king of our hearts is now immortalized in a masterpiece we read every night."
+              "Nothing prepared us for losing Buddy. This book helped our daughter say goodbye."
             </p>
           </div>
 
           <div className="space-y-4 px-4">
             <h3 className="text-xl md:text-2xl font-display text-navy leading-tight">
-              The <span className="text-gold">bond</span> is art <br />
-              dream life <span className="italic">"Forever"</span>
+              Your child's grief is real. <br />
+              <span className="italic text-gold">So was their love.</span>
             </h3>
             <Link 
               to="/customize"
@@ -160,7 +160,7 @@ const Hero = () => (
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
                   <Sparkles className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest">Start Now</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest">Create Their Book</span>
               </div>
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -179,7 +179,7 @@ const Hero = () => (
           to="/customize"
           className="w-full group relative inline-flex items-center justify-center gap-3 px-6 py-4 md:px-8 md:py-5 bg-gold text-cream font-bold rounded-full text-sm md:text-base shadow-xl hover:-translate-y-1 transition-all"
         >
-          Create Your Legacy
+          Create Their Book — Free Shipping
           <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
         </Link>
         <a
@@ -258,7 +258,7 @@ const Features = () => (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-navy/5 border border-navy/5 rounded-3xl overflow-hidden">
         {[
           { icon: <Dog className="w-6 h-6" />, title: "75+ Breeds", desc: "Every illustration is hand-refined to capture the unique spirit of your dog's breed." },
-          { icon: <User className="w-6 h-6" />, title: "Family First", desc: "Include up to 3 children and 3 dogs in a single, cohesive narrative." },
+          { icon: <User className="w-6 h-6" />, title: "Family First", desc: "Include up to up to 5 children — more than any other brand and 3 dogs in a single, cohesive narrative." },
           { icon: <Sparkles className="w-6 h-6" />, title: "True Likeness", desc: "Our premium edition features artists who draw your family from your actual photos." },
           { icon: <PawPrint className="w-6 h-6" />, title: "Legacy Quality", desc: "Archival-grade paper and soft-touch covers designed to last generations." },
           { icon: <Calendar className="w-6 h-6" />, title: "Age Accuracy", desc: "Characters evolve from infancy to age 12 to match your child's stage." },
