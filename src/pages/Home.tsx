@@ -143,7 +143,7 @@ const Hero = () => (
               </div>
             </div>
             <p className="text-[11px] md:text-xs text-navy/60 leading-relaxed italic mb-4 md:mb-6">
-              "Nothing prepared us for losing Buddy. This book helped our daughter say goodbye."
+              "Nothing prepared us for losing Buddy. This book helped our son say goodbye."
             </p>
           </div>
 
