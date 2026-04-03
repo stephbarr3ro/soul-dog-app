@@ -135,7 +135,7 @@ const Hero = () => (
           <div className="bg-white/50 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white shadow-xl shadow-navy/5">
             <div className="flex items-center gap-4 mb-4 md:mb-6">
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-navy overflow-hidden">
-                <img src="/couple-review.jpg" alt="Dog" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                <img src="/kid-dog.jpg" alt="Dog" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
               <div>
                 <h4 className="text-[10px] md:text-xs font-bold text-navy uppercase tracking-wider">Luna & Leo</h4>
