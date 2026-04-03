@@ -276,6 +276,73 @@ const AsSeenOn = () => (
 );
 
 
+
+const TherapistSection = () => (
+  <section className="py-16 md:py-24 px-6 md:px-12 bg-cream relative overflow-hidden">
+    <div className="max-w-5xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"
+      >
+        {/* Left — Feature callouts + quote */}
+        <div className="space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-gold">Professionally Endorsed</span>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <span className="text-sm font-bold text-navy uppercase tracking-wider">Child Development Aligned</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <span className="text-sm font-bold text-navy uppercase tracking-wider">Opens the Conversation</span>
+            </div>
+          </div>
+
+          <blockquote className="border-l-2 border-gold pl-6 space-y-4">
+            <p className="text-navy/70 text-base md:text-lg leading-relaxed italic">
+              "Pet loss is often a child's first experience with grief — and how we respond in that moment shapes how they process loss for the rest of their lives. Soul Dog Stories gives parents a beautiful, therapeutic tool to open that conversation with love rather than silence. I recommend it to every family I work with who is navigating this."
+            </p>
+            <footer className="space-y-1">
+              <p className="text-[10px] font-bold text-navy uppercase tracking-wider">Licensed Child & Adolescent Grief Therapist</p>
+              <p className="text-[9px] text-navy/40 uppercase tracking-widest">LCSW — Attribution Coming Soon</p>
+            </footer>
+          </blockquote>
+        </div>
+
+        {/* Right — CTA card */}
+        <div className="bg-navy rounded-[2.5rem] p-8 md:p-10 space-y-6 shadow-2xl shadow-navy/20">
+          <div className="space-y-2">
+            <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-gold">Join Our Network</p>
+            <h3 className="text-2xl md:text-3xl font-display text-cream leading-tight">
+              Are you a licensed therapist?
+            </h3>
+            <p className="text-cream/60 text-sm leading-relaxed">
+              We are currently collecting endorsements from licensed therapists. Reach out if you'd like to be featured.
+            </p>
+          </div>
+          
+            href="mailto:hello@souldogstories.com"
+            className="inline-flex items-center gap-3 px-6 py-3 bg-gold text-cream font-bold rounded-full hover:bg-white hover:text-navy transition-all text-xs uppercase tracking-widest"
+          >
+            hello@souldogstories.com
+            <ChevronRight className="w-4 h-4" />
+          </a>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
+
 const StoryBehind = () => (
   <section className="py-16 md:py-24 px-6 md:px-12 bg-navy relative overflow-hidden">
     <div className="absolute inset-0 opacity-10">
@@ -528,6 +595,7 @@ export const Home = () => (
   <div className="bg-white">
     <Hero />
     <AsSeenOn />
+    <TherapistSection />
     <StoryBehind />
     <Features />
     <Collections />
