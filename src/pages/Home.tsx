@@ -205,6 +205,41 @@ const Hero = () => (
 
 const AsSeenOn = () => (
   <section style={{ background: '#FBF6F0' }} className="py-12 md:py-20 px-6 md:px-12">
+
+    {/* Trust Badges — above photo */}
+    <div className="max-w-5xl mx-auto mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0 }}
+        className="flex items-center gap-4 px-5 py-4 bg-white rounded-2xl shadow-sm border border-navy/5">
+        <div className="w-14 h-10 rounded-xl flex items-center justify-center p-1 flex-shrink-0 bg-black">
+          <img src="https://elaynefluker.com/wp-content/uploads/2021/09/ABC-Nightline-Website-Logo.png" alt="ABC Nightline" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-navy uppercase tracking-wider">As Seen on ABC</p>
+          <p className="text-[9px] text-navy/50 uppercase tracking-widest">Nightline</p>
+        </div>
+      </motion.div>
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+        className="flex items-center gap-4 px-5 py-4 bg-white rounded-2xl shadow-sm border border-navy/5">
+        <div className="w-11 h-11 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-navy uppercase tracking-wider">Therapist Recommended</p>
+          <p className="text-[9px] text-navy/50 uppercase tracking-widest">Child Grief Specialists</p>
+        </div>
+      </motion.div>
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+        className="flex items-center gap-4 px-5 py-4 bg-white rounded-2xl shadow-sm border border-navy/5">
+        <div className="w-11 h-11 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
+          <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-navy uppercase tracking-wider">100% Satisfaction</p>
+          <p className="text-[9px] text-navy/50 uppercase tracking-widest">Guaranteed</p>
+        </div>
+      </motion.div>
+    </div>
+
     <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 md:gap-12">
       <div className="flex flex-col gap-4 md:gap-6 flex-1">
         <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-navy/40">As Seen On</span>
