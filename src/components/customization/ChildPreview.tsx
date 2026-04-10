@@ -36,7 +36,7 @@ const HAIR_MAP: Record<string, Record<string, string>> = {
 
 const EYE_MAP: Record<string, string> = {
   'Brown':      'brown.webp',
-  'Dark Brown': 'brown.webp',
+  'Dark Brown': 'dark-brown.webp',
   'Amber':      'amber.webp',
   'Hazel':      'hazel.webp',
   'Green':      'green.webp',
@@ -44,6 +44,17 @@ const EYE_MAP: Record<string, string> = {
   'Gray':       'gray.webp',
   'Black':      'black.webp',
 };
+
+// Map skinTone (tone-1 to tone-12) to body file
+function getBodyUrl(gender: string, skinTone: string): string {
+  const toneNum = skinTone?.replace('tone-', '');
+  const num = parseInt(toneNum);
+  if (!isNaN(num) && num >= 1 && num <= 12) {
+    return `${CDN}/body/${gender}-tone-${num}.webp`;
+  }
+  // fallback to default body
+  return `${CDN}/body/${gender}.webp`;
+}
 
 const layer: React.CSSProperties = {
   position: 'absolute',
@@ -55,7 +66,7 @@ const layer: React.CSSProperties = {
 
 export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child, size = 300 }) => {
   const gender   = child.gender === 'Boy' ? 'boy' : 'girl';
-  const bodyUrl  = `${CDN}/body/${gender}.webp`;
+  const bodyUrl  = getBodyUrl(gender, child.skinTone);
   const eyeFile  = EYE_MAP[child.eyeColor] || 'brown.webp';
   const eyeUrl   = `${CDN}/eyes/${eyeFile}`;
   const hairFile = HAIR_MAP[gender][child.hairStyle] || Object.values(HAIR_MAP[gender])[0];
