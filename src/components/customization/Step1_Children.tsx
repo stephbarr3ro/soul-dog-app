@@ -16,14 +16,11 @@ const SKIN_TONES = [
 ];
 
 const HAIR_COLORS = [
-  { name: "Blonde", hex: "#E9C17B" }, { name: "Golden", hex: "#D4A017" },
-  { name: "Light Brown", hex: "#A0785A" }, { name: "Medium Brown", hex: "#785032" },
-  { name: "Dark Brown", hex: "#4B321E" }, { name: "Black", hex: "#1A1A1A" },
-  { name: "Red", hex: "#B22222" }, { name: "Auburn", hex: "#8B4513" },
-  { name: "White", hex: "#F5F5F5" }, { name: "Grey", hex: "#808080" },
-  { name: "Salt & Pepper", hex: "#404040" }, { name: "Blue", hex: "#0000FF" },
-  { name: "Pink", hex: "#FFC0CB" }, { name: "Purple", hex: "#800080" },
-  { name: "Green", hex: "#008000" }, { name: "Teal", hex: "#008080" }
+  { name: "Blonde",      hex: "#E9C17B" },
+  { name: "Light Brown", hex: "#A0785A" },
+  { name: "Brown",       hex: "#785032" },
+  { name: "Black",       hex: "#1A1A1A" },
+  { name: "Ginger",      hex: "#B84A0A" },
 ];
 
 const EYE_COLORS = ["Blue", "Brown", "Green", "Hazel", "Gray", "Amber", "Dark Brown", "Light Blue", "Vibrant Green", "Honey"];
