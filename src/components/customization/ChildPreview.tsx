@@ -3,35 +3,47 @@ import { Child } from '@/src/store/useCustomizationStore';
 
 const CDN = '/children';
 
-const HAIR_MAP: Record<string, Record<string, string>> = {
-  boy: {
-    'Short & Straight': 'short-straight.webp',
-    'Short & Curly':    'short-curly.webp',
-    'Short & Wavy':     'short-wavy.webp',
-    'Crew Cut':         'crew-cut.webp',
-    'Buzz Cut':         'buzz-cut.webp',
-    'Side Part':        'side-part.webp',
-    'Messy/Textured':   'messy-textured.webp',
-    'Afro':             'afro.webp',
-    'Locs':             'locs.webp',
-    'Mohawk':           'mohawk.webp',
-    'Undercut':         'undercut.webp',
-    'Medium Length':    'medium-length.webp',
-  },
-  girl: {
-    'Long & Straight': 'long-straight.webp',
-    'Long & Wavy':     'long-wavy.webp',
-    'Long & Curly':    'long-curly.webp',
-    'Braids':          'braids.webp',
-    'Pigtails':        'pigtails.webp',
-    'Ponytail':        'ponytail.webp',
-    'Bun':             'bun.webp',
-    'Bob':             'bob.webp',
-    'Pixie Cut':       'pixie-cut.webp',
-    'Afro':            'afro.webp',
-    'Locs':            'locs.webp',
-    'Short & Straight':'short-straight.webp',
-  },
+const HAIR_STYLES_BOY = [
+  'Short & Straight', 'Short & Curly', 'Short & Wavy', 'Crew Cut',
+  'Buzz Cut', 'Side Part', 'Messy/Textured', 'Afro', 'Locs',
+  'Mohawk', 'Undercut', 'Medium Length'
+];
+
+const HAIR_STYLES_GIRL = [
+  'Long & Straight', 'Long & Wavy', 'Long & Curly', 'Braids',
+  'Pigtails', 'Ponytail', 'Bun', 'Bob', 'Pixie Cut', 'Afro', 'Locs', 'Short & Straight'
+];
+
+const HAIR_FILE_MAP: Record<string, string> = {
+  'Short & Straight': 'short-straight',
+  'Short & Curly':    'short-curly',
+  'Short & Wavy':     'short-wavy',
+  'Crew Cut':         'crew-cut',
+  'Buzz Cut':         'buzz-cut',
+  'Side Part':        'side-part',
+  'Messy/Textured':   'messy-textured',
+  'Afro':             'afro',
+  'Locs':             'locs',
+  'Mohawk':           'mohawk',
+  'Undercut':         'undercut',
+  'Medium Length':    'medium-length',
+  'Long & Straight':  'long-straight',
+  'Long & Wavy':      'long-wavy',
+  'Long & Curly':     'long-curly',
+  'Braids':           'braids',
+  'Pigtails':         'pigtails',
+  'Ponytail':         'ponytail',
+  'Bun':              'bun',
+  'Bob':              'bob',
+  'Pixie Cut':        'pixie-cut',
+};
+
+const HAIR_COLOR_MAP: Record<string, string> = {
+  'Blonde':       'blonde',
+  'Light Brown':  'light-brown',
+  'Brown':        'brown',
+  'Black':        'black',
+  'Ginger':       'ginger',
 };
 
 const EYE_MAP: Record<string, string> = {
@@ -45,15 +57,18 @@ const EYE_MAP: Record<string, string> = {
   'Black':      'black.webp',
 };
 
-// Map skinTone (tone-1 to tone-12) to body file
 function getBodyUrl(gender: string, skinTone: string): string {
-  const toneNum = skinTone?.replace('tone-', '');
-  const num = parseInt(toneNum);
+  const num = parseInt(skinTone?.replace('tone-', ''));
   if (!isNaN(num) && num >= 1 && num <= 12) {
     return `${CDN}/body/${gender}-tone-${num}.webp`;
   }
-  // fallback to default body
   return `${CDN}/body/${gender}.webp`;
+}
+
+function getHairUrl(gender: string, hairStyle: string, hairColor: string): string {
+  const styleFile = HAIR_FILE_MAP[hairStyle] || 'short-straight';
+  const colorFile = HAIR_COLOR_MAP[hairColor] || 'brown';
+  return `${CDN}/hair/${gender}/${styleFile}-${colorFile}.webp`;
 }
 
 const layer: React.CSSProperties = {
@@ -65,12 +80,10 @@ const layer: React.CSSProperties = {
 };
 
 export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child, size = 300 }) => {
-  const gender   = child.gender === 'Boy' ? 'boy' : 'girl';
-  const bodyUrl  = getBodyUrl(gender, child.skinTone);
-  const eyeFile  = EYE_MAP[child.eyeColor] || 'brown.webp';
-  const eyeUrl   = `${CDN}/eyes/${eyeFile}`;
-  const hairFile = HAIR_MAP[gender][child.hairStyle] || Object.values(HAIR_MAP[gender])[0];
-  const hairUrl  = `${CDN}/hair/${gender}/${hairFile}`;
+  const gender  = child.gender === 'Boy' ? 'boy' : 'girl';
+  const bodyUrl = getBodyUrl(gender, child.skinTone);
+  const eyeUrl  = `${CDN}/eyes/${EYE_MAP[child.eyeColor] || 'brown.webp'}`;
+  const hairUrl = getHairUrl(gender, child.hairStyle, child.hairColor);
 
   return (
     <div style={{ position: 'relative', width: size, height: size, maxWidth: '100%', margin: '0 auto' }}>
