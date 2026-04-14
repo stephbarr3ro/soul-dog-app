@@ -15,7 +15,7 @@ const HAIR_STYLES_GIRL = [
 ];
 
 const HAIR_FILE_MAP: Record<string, string> = {
-  'Short & Straight': 'short-straight',
+  'Medium & Straight': 'medium-straight',
   'Short & Curly':    'short-curly',
   'Short & Wavy':     'short-wavy',
   'Crew Cut':         'crew-cut',
@@ -28,6 +28,7 @@ const HAIR_FILE_MAP: Record<string, string> = {
   'Undercut':         'undercut',
   'Medium Length':    'medium-length',
   'Long & Straight':  'long-straight',
+  'Medium & Straight': 'medium-straight',
   'Long & Wavy':      'long-wavy',
   'Long & Curly':     'long-curly',
   'Braids':           'braids',
