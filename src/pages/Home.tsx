@@ -247,7 +247,7 @@ const AsSeenOn = () => (
           <span className="italic">across the country</span>
         </h3>
         <p className="text-navy/50 text-base leading-relaxed max-w-sm">
-          Soul Dog Stories has been featured on national media for creating the most meaningful personalized books for families and their dogs.
+          Soul Dog Stories has been featured on national media as the most trusted grief resource for children who have lost their dog.
         </p>
       </div>
       <div className="relative flex-shrink-0">
@@ -499,7 +499,7 @@ const Features = () => (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-navy/5 border border-navy/5 rounded-3xl overflow-hidden">
         {[
           { icon: <Dog className="w-6 h-6" />, title: "75+ Breeds", desc: "Every illustration is hand-refined to capture the unique spirit of your dog's breed." },
-          { icon: <User className="w-6 h-6" />, title: "Family First", desc: "Include up to up to 5 children — more than any other brand and 3 dogs in a single, cohesive narrative." },
+          { icon: <User className="w-6 h-6" />, title: "Family First", desc: "Include up to Include up to 5 children — more than any other brand and 3 dogs in a single, cohesive narrative." },
           { icon: <Sparkles className="w-6 h-6" />, title: "True Likeness", desc: "Our premium edition features artists who draw your family from your actual photos." },
           { icon: <PawPrint className="w-6 h-6" />, title: "Legacy Quality", desc: "Archival-grade paper and soft-touch covers designed to last generations." },
           { icon: <Calendar className="w-6 h-6" />, title: "Age Accuracy", desc: "Characters evolve from infancy to age 12 to match your child's stage." },
