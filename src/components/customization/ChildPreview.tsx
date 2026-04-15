@@ -84,16 +84,20 @@ const layer: React.CSSProperties = {
 };
 
 export const ChildPreview: React.FC<{ child: Child; size?: number }> = ({ child, size = 300 }) => {
-  const gender  = child.gender === 'Boy' ? 'boy' : 'girl';
-  const bodyUrl = getBodyUrl(gender, child.skinTone);
-  const eyeUrl  = `${CDN}/eyes/${EYE_MAP[child.eyeColor] || 'brown.webp'}`;
-  const hairUrl = getHairUrl(gender, child.hairStyle, child.hairColor);
+  const gender      = child.gender === 'Boy' ? 'boy' : 'girl';
+  const bodyUrl     = getBodyUrl(gender, child.skinTone);
+  const eyeUrl      = `${CDN}/eyes/${EYE_MAP[child.eyeColor] || 'brown.webp'}`;
+  const hairUrl     = getHairUrl(gender, child.hairStyle, child.hairColor);
+  const frecklesUrl = `${CDN}/accessories/freckles.webp`;
+  const glassesUrl  = `${CDN}/accessories/glasses.webp`;
 
   return (
     <div style={{ position: 'relative', width: size, height: size, maxWidth: '100%', margin: '0 auto' }}>
       <img src={bodyUrl} alt="body" style={{ ...layer, zIndex: 10 }} />
       <img src={eyeUrl}  alt="eyes" style={{ ...layer, zIndex: 20 }} />
       <img src={hairUrl} alt="hair" style={{ ...layer, zIndex: 30 }} />
+      {child.freckles && <img src={frecklesUrl} alt="freckles" style={{ ...layer, zIndex: 40 }} />}
+      {child.glasses  && <img src={glassesUrl}  alt="glasses"  style={{ ...layer, zIndex: 50 }} />}
     </div>
   );
 };
