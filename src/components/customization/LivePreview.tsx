@@ -98,9 +98,9 @@ const DogOnWhite = () => {
   );
 };
 
-const ChildrenPlaceholder = () => {
+const ChildrenPlaceholder = ({ activeIndex = 0 }: { activeIndex?: number }) => {
   const { children } = useCustomizationStore();
-  const child = children[0];
+  const child = children[activeIndex] || children[0];
   const size = 300;
   return (
     <div className="flex items-center justify-center h-full">
@@ -119,9 +119,10 @@ interface LivePreviewProps {
   className?: string;
   step?: number;
   compact?: boolean;
+  activeChildIndex?: number;
 }
 
-export const LivePreview = ({ className, step = 0, compact = false }: LivePreviewProps) => {
+export const LivePreview = ({ className, step = 0, compact = false, activeChildIndex = 0 }: LivePreviewProps) => {
   const { edition } = useCustomizationStore();
   const isTrueLikeness = edition === 'true-likeness';
 
@@ -172,7 +173,7 @@ export const LivePreview = ({ className, step = 0, compact = false }: LivePrevie
   }
 
   // Step 1: children placeholder
-  if (step === 1) return <ChildrenPlaceholder />;
+  if (step === 1) return <ChildrenPlaceholder activeIndex={activeChildIndex} />;
 
   // Step 2: dog compositor
   return <DogOnWhite />;

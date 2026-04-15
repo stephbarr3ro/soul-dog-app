@@ -31,7 +31,7 @@ const Check = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const Step1_Children = () => {
+export const Step1_Children = ({ onActiveChildChange }: { onActiveChildChange?: (i: number) => void } = {}) => {
   const { children, addChild, removeChild, updateChild, edition, setEdition } = useCustomizationStore();
   const [isUploading, setIsUploading] = React.useState<string | null>(null);
   const isTrueLikeness = edition === 'true-likeness';
@@ -62,7 +62,7 @@ export const Step1_Children = () => {
 
       <AnimatePresence mode="popLayout">
         {children.map((child, index) => (
-          <motion.div key={child.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-navy/5 border border-gray-100">
+          <motion.div key={child.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-navy/5 border border-gray-100" onClick={() => onActiveChildChange?.(index)}>
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-navy text-cream flex items-center justify-center font-display text-lg">{index + 1}</div>
