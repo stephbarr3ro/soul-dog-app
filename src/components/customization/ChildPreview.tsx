@@ -48,14 +48,17 @@ const HAIR_COLOR_MAP: Record<string, string> = {
 };
 
 const EYE_MAP: Record<string, string> = {
-  'Brown':      'brown.webp',
-  'Dark Brown': 'dark-brown.webp',
-  'Amber':      'amber.webp',
-  'Hazel':      'hazel.webp',
-  'Green':      'green.webp',
-  'Blue':       'blue.webp',
-  'Gray':       'gray.webp',
-  'Black':      'black.webp',
+  'Brown':         'brown.webp',
+  'Dark Brown':    'dark-brown.webp',
+  'Amber':         'amber.webp',
+  'Hazel':         'hazel.webp',
+  'Green':         'green.webp',
+  'Blue':          'blue.webp',
+  'Gray':          'gray.webp',
+  'Black':         'black.webp',
+  'Honey':         'honey.webp',
+  'Light Blue':    'light-blue.webp',
+  'Vibrant Green': 'vibrant-green.webp',
 };
 
 function getBodyUrl(gender: string, skinTone: string): string {
