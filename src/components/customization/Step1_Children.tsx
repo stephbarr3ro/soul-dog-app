@@ -7,7 +7,7 @@ import { uploadPhoto } from '@/src/lib/supabase';
 
 const HAIR_STYLES = {
   Girl: ["Long & Straight", "Long & Wavy", "Long & Curly", "Braids", "Pigtails", "Ponytail", "Bun", "Bob", "Pixie Cut", "Afro", "Locs", "Medium & Straight"],
-  Boy: ["Medium & Straight", "Short & Curly", "Short & Wavy", "Crew Cut", "Buzz Cut", "Side Part", "Messy/Textured", "Afro", "Locs", "Mohawk", "Undercut", "Medium Length"]
+  Boy: ["Short & Straight", "Short & Curly", "Short & Wavy", "Crew Cut", "Buzz Cut", "Side Part", "Messy/Textured", "Afro", "Locs", "Mohawk", "Undercut", "Medium Length"]
 };
 
 const SKIN_TONES = [
