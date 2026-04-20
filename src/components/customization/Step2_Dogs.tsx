@@ -281,14 +281,13 @@ export const Step2_Dogs = () => {
                   <>
                     <div className="space-y-3">
                       <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Fur Color</label>
-                      <div className="grid grid-cols-2 gap-2">
-                        {furOptions.map((color) => (
-                          <button key={color.name} onClick={() => updateDog(dog.id, { furColor: color.name })}
-                            className={cn("flex items-center gap-3 p-3 rounded-2xl border transition-all text-left", dog.furColor === color.name ? "border-gold bg-gold/5 shadow-md" : "border-gray-100 hover:border-gray-200 bg-white")}>
-                            <span className="w-5 h-5 rounded-full flex-shrink-0 border border-black/10" style={{ background: color.hex }} />
-                            <span className={cn("text-[12px] font-medium", dog.furColor === color.name ? "text-navy" : "text-navy/60")}>{color.name}</span>
-                          </button>
-                        ))}
+                      <div className="relative">
+                        <select value={dog.furColor} onChange={(e) => updateDog(dog.id, { furColor: e.target.value })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
+                          {furOptions.map((color) => (
+                            <option key={color.file} value={color.file}>{color.name}</option>
+                          ))}
+                        </select>
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-navy/20"><ArrowRight className="w-4 h-4 rotate-90" /></div>
                       </div>
                     </div>
                     <div className="space-y-3">
