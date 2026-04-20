@@ -5,7 +5,6 @@ import { cn } from '@/src/lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import { uploadPhoto } from '@/src/lib/supabase';
 
-};
 
 const DOG_BREEDS = {
   "Most Popular": ["Golden Retriever", "Labrador", "French Bulldog", "German Shepherd", "Poodle", "Bulldog", "Beagle", "Rottweiler", "Dachshund", "Corgi", "Australian Shepherd", "Boxer", "Husky", "Doberman", "Pomeranian", "Chihuahua"],
