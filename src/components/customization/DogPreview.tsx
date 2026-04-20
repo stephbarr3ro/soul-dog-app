@@ -1,129 +1,82 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Dog } from '@/src/store/useCustomizationStore';
 
-const CDN = 'https://stephbarr3ro.github.io/book-assets';
+const CDN = '/dogs';
 
-const BREED_ASSETS: Record<string, {
-  folder: string;
-  furs: Record<string, string>;
-  eyes: Record<string, string>;
-  collars: Record<string, string>;
-}> = {
-  'Golden Retriever': {
-    folder: 'golden-retriever',
-    furs: {
-      'Cream':            'dogs_golden-retriever_fur_cream.webp',
-      'Light Golden':     'dogs_golden-retriever_fur_light-golden.webp',
-      'Golden':           'dogs_golden-retriever_fur_golden.webp',
-      'Dark Golden':      'dogs_golden-retriever_fur_dark-golden.webp',
-      'Rich Dark Golden': 'dogs_golden-retriever_fur_rich-dark-golden.webp',
-      'Red Golden':       'dogs_golden-retriever_fur_red-golden.webp',
-    },
-    eyes: {
-      'Brown':      'dogs:golden-retriever:eyes:brown.webp',
-      'Dark Brown': 'dogs:golden-retriever:eyes:dark-brown.webp',
-      'Amber':      'dogs:golden-retriever:eyes:amber.webp',
-      'Hazel':      'dogs:golden-retriever:eyes:hanzel.webp',
-      'Green':      'dogs:golden-retriever:eyes:green.webp',
-      'Blue':       'dogs:golden-retriever:eyes:blue.webp',
-      'Gray':       'dogs:golden-retriever:eyes:gray.webp',
-      'Black':      'dogs:golden-retriever:eyes:black.webp',
-    },
-    collars: {
-      'Sky Blue': 'dogs:golden-retriever:collar:skyblue',
-      'Red':      'dogs:golden-retriever:collar:red.webp',
-      'Green':    'dogs:golden-retriever:collar:green.webp',
-      'Yellow':   'dogs:golden-retriever:collar:yellow.webp',
-      'Orange':   'dogs:golden-retriever:collar:orange.webp',
-      'Purple':   'dogs:golden-retriever:collar:purple.webp',
-      'Pink':     'dogs:golden-retriever:collar:pink.webp',
-      'Navy':     'dogs:golden-retriever:collar:navy.webp',
-      'Black':    'dogs:golden-retriever:collar:black.webp',
-      'White':    'dogs:golden-retriever:collar:whitewebp',
-    },
-  },
+// Map breed name to folder name
+const BREED_FOLDER: Record<string, string> = {
+  'Golden Retriever':    'golden-retriever',
+  'Labrador':            'labrador',
+  'French Bulldog':      'french-bulldog',
+  'German Shepherd':     'german-shepherd',
+  'Poodle':              'standard-poodle',
+  'Bulldog':             'bulldog',
+  'Beagle':              'beagle',
+  'Rottweiler':          'rottweiler',
+  'Dachshund':           'dachshund',
+  'Corgi':               'corgi',
+  'Australian Shepherd': 'australian-shepherd',
+  'Husky':               'husky',
+  'Doberman':            'doberman',
+  'Pomeranian':          'pomeranian',
+  'Chihuahua':           'chihuahua',
+  'American Bully':      'american-bully',
+  'Cocker Spaniel':      'cocker-spaniel',
+  'Dalmatian':           'dalmatian',
+  'Goldendoodle':        'goldendoodle',
+  'Morkie':              'morkie',
+  'Boxer':               'boxer',
 };
 
-function buildUrl(folder: string, subfolder: string, file: string): string {
-  return `${CDN}/${folder}/${subfolder}/${encodeURIComponent(file)}`;
-}
+// Map collar color names to file names
+const COLLAR_FILE: Record<string, string> = {
+  'Sky Blue': 'skyblue',
+  'Red':      'red',
+  'Green':    'green',
+  'Yellow':   'yellow',
+  'Orange':   'orange',
+  'Purple':   'purple',
+  'Pink':     'pink',
+  'Navy':     'navy',
+  'Black':    'black',
+  'White':    'white',
+};
 
-// Preload a single image, returns a promise
-function preloadImage(src: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new window.Image();
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error(`Failed: ${src}`));
-    img.src = src;
-  });
-}
+// Map eye color names to file names
+const EYE_FILE: Record<string, string> = {
+  'Brown':      'brown',
+  'Dark Brown': 'dark-brown',
+  'Amber':      'amber',
+  'Hazel':      'hazel',
+  'Green':      'green',
+  'Blue':       'blue',
+  'Gray':       'gray',
+  'Black':      'black',
+};
 
-interface DogPreviewProps {
-  dog: Dog;
-  size?: number;
-}
+const layer: React.CSSProperties = {
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+  objectFit: 'contain',
+};
 
-export const DogPreview: React.FC<DogPreviewProps> = ({ dog, size = 300 }) => {
-  const breedData = BREED_ASSETS[dog.breed];
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+export const DogPreview: React.FC<{ dog: Dog; size?: number }> = ({ dog, size = 300 }) => {
+  const folder = BREED_FOLDER[dog.breed] || 'golden-retriever';
+  const furFile    = dog.furColor?.toLowerCase().replace(/ /g, '-') || 'golden';
+  const eyeFile    = EYE_FILE[dog.eyeColor] || 'brown';
+  const collarFile = COLLAR_FILE[dog.collarColor] || 'red';
 
-  // Track the currently rendered combination to avoid flicker
-  const [rendered, setRendered] = useState<string>('');
-  const pendingRef = useRef<string>('');
-
-  useEffect(() => {
-    if (!breedData) return;
-
-    const furFile    = breedData.furs[dog.furColor]       || Object.values(breedData.furs)[2];
-    const eyeFile    = breedData.eyes[dog.eyeColor]       || Object.values(breedData.eyes)[0];
-    const collarFile = breedData.collars[dog.collarColor] || Object.values(breedData.collars)[7];
-
-    const eyeUrl    = buildUrl(breedData.folder, 'eye',    eyeFile);
-    const furUrl    = buildUrl(breedData.folder, 'fur',    furFile);
-    const collarUrl = buildUrl(breedData.folder, 'collar', collarFile);
-
-    const combo = `${eyeUrl}|${furUrl}|${collarUrl}`;
-
-    // Already rendered this combination
-    if (rendered === combo) return;
-
-    // Mark this as pending
-    pendingRef.current = combo;
-
-    // Load all 3 layers in parallel — only draw when ALL are ready
-    Promise.all([
-      preloadImage(eyeUrl).catch(() => null),
-      preloadImage(furUrl).catch(() => null),
-      preloadImage(collarUrl).catch(() => null),
-    ]).then(([eyeImg, furImg, collarImg]) => {
-      // If a newer request came in while loading, discard this one
-      if (pendingRef.current !== combo) return;
-
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      ctx.clearRect(0, 0, size, size);
-
-      // Draw in order: eyes (bottom) → fur → collar (top)
-      if (eyeImg)    ctx.drawImage(eyeImg,    0, 0, size, size);
-      if (furImg)    ctx.drawImage(furImg,    0, 0, size, size);
-      if (collarImg) ctx.drawImage(collarImg, 0, 0, size, size);
-
-      setRendered(combo);
-    });
-  }, [dog.furColor, dog.eyeColor, dog.collarColor, dog.breed, size, breedData, rendered]);
-
-  if (!breedData) return null;
+  const furUrl    = `${CDN}/${folder}/fur/${furFile}.webp`;
+  const eyeUrl    = `${CDN}/${folder}/eye/${eyeFile}.webp`;
+  const collarUrl = `${CDN}/${folder}/collar/${collarFile}.webp`;
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={size}
-      height={size}
-      style={{ display: 'block', maxWidth: '100%', margin: '0 auto' }}
-    />
+    <div style={{ position: 'relative', width: size, height: size, maxWidth: '100%', margin: '0 auto' }}>
+      <img src={furUrl}    alt="fur"    style={{ ...layer, zIndex: 10 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+      <img src={eyeUrl}    alt="eyes"   style={{ ...layer, zIndex: 20 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+      <img src={collarUrl} alt="collar" style={{ ...layer, zIndex: 30 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+    </div>
   );
 };
