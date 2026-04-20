@@ -16,7 +16,7 @@ const COVER_COLORS = {
 const BookCover = ({ showDogImage = true }: { showDogImage?: boolean }) => {
   const { storyTitle, children, dogs, coverColor, edition, dedication } = useCustomizationStore();
   const bgColor = COVER_COLORS[coverColor as keyof typeof COVER_COLORS] || COVER_COLORS["Midnight Navy"];
-  const hasDog = showDogImage && dogs.length > 0 && dogs[0].breed === 'Golden Retriever' && edition === 'classic';
+  const hasDog = showDogImage && dogs.length > 0 && edition === 'classic';
 
   return (
     <motion.div
@@ -71,7 +71,7 @@ const BookCover = ({ showDogImage = true }: { showDogImage?: boolean }) => {
 
 const DogOnWhite = () => {
   const { dogs, edition } = useCustomizationStore();
-  const hasDog = dogs.length > 0 && dogs[0].breed === 'Golden Retriever' && edition === 'classic';
+  const hasDog = dogs.length > 0 && edition === 'classic';
   const size = 300;
 
   return (
