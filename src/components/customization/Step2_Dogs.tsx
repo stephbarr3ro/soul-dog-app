@@ -135,7 +135,7 @@ export const Step2_Dogs = () => {
                 {!isTrueLikeness && (
                   <>
                     <div className="space-y-3">
-                      <label className="block text-[10px] fFur Color</label>
+                      <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Fur Color</label>
                       <div className="relative">
                         <select value={dog.furColor} onChange={(e) => updateDog(dog.id, { furColor: e.target.value })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
                           {furOptions.map((color) => (
