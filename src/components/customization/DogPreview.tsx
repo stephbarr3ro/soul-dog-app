@@ -12,6 +12,8 @@ const BREED_FOLDER: Record<string, string> = {
   'Doberman': 'doberman', 'Pomeranian': 'pomeranian', 'Chihuahua': 'chihuahua',
   'American Bully': 'american-bully', 'Cocker Spaniel': 'cocker-spaniel',
   'Dalmatian': 'dalmatian', 'Goldendoodle': 'goldendoodle', 'Morkie': 'morkie',
+  'Labradoodle': 'labradoodle', 'Pitbull': 'pitbull',
+  'Miniature Schnauzer': 'schnauzer-miniature', 'Shih Tzu': 'shih-tzu',
 };
 
 const COLLAR_FILE: Record<string, string> = {

@@ -11,6 +11,7 @@ const AVAILABLE_BREEDS = new Set([
   'Bulldog', 'Beagle', 'Rottweiler', 'Dachshund', 'Corgi', 'Australian Shepherd',
   'Boxer', 'Husky', 'Doberman', 'Goldendoodle', 'Morkie',
   'Chihuahua', 'Pomeranian', 'Cocker Spaniel', 'American Bully', 'Dalmatian',
+  'Labradoodle', 'Pitbull', 'Miniature Schnauzer', 'Shih Tzu',
 ]);
 
 const DOG_BREEDS: Record<string, string[]> = {
@@ -18,7 +19,7 @@ const DOG_BREEDS: Record<string, string[]> = {
     "Golden Retriever", "Labrador", "French Bulldog", "German Shepherd", "Poodle",
     "Bulldog", "Beagle", "Rottweiler", "Dachshund", "Corgi", "Australian Shepherd",
     "Yorkshire Terrier", "Boxer", "Shih Tzu", "Husky", "Doberman",
-    "Schnauzer", "Border Collie", "Pug", "Akita",
+    "Schnauzer", "Pitbull", "Border Collie", "Pug", "Akita",
   ],
   "Designer / Mixed": [
     "Goldendoodle", "Morkie", "Labradoodle", "Bernedoodle", "Cavapoo",
@@ -62,6 +63,10 @@ const BREED_FURS: Record<string, { name: string; file: string }[]> = {
   'Dalmatian':           [{name:'Black Spotted',file:'black-spotted'},{name:'Liver Spotted',file:'liver-spotted'}],
   'Goldendoodle':        [{name:'Gold',file:'gold'},{name:'Apricot',file:'apricot'},{name:'Cream',file:'cream'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'}],
   'Morkie':              [{name:'Black And Tan',file:'black-and-tan'},{name:'White',file:'white'},{name:'Black And White',file:'black-and-white'},{name:'Black',file:'black'},{name:'White And Gray',file:'white-and-gray'},{name:'Black And Brown',file:'black-and-brown'},{name:'Blue And Tan',file:'blue-and-tan'},{name:'Gray And Tan',file:'gray-and-tan'},{name:'Biewer',file:'biewer'}],
+  'Labradoodle':         [{name:'Gold',file:'gold'},{name:'Chalk',file:'chalk'},{name:'Chocolate',file:'chocolate'},{name:'Black',file:'black'}],
+  'Pitbull':             [{name:'Fawn',file:'fawn'},{name:'Blue Nose',file:'blue-nose'},{name:'Red Nose',file:'red-nose'},{name:'Gray',file:'gray'}],
+  'Miniature Schnauzer': [{name:'Salt & Pepper',file:'salt-and-pepper'},{name:'Black',file:'black'},{name:'Solid Black',file:'black-pure'}],
+  'Shih Tzu':            [{name:'Gold',file:'gold'},{name:'White',file:'white'},{name:'Black',file:'black'},{name:'White And Gold',file:'white-and-gold'},{name:'Black And White',file:'black-and-white'},{name:'Gray And White',file:'gray-and-white'},{name:'Red And White',file:'red-and-white'},{name:'Tricolor',file:'tricolor'}],
   'default':             [{name:'Brown',file:'brown'},{name:'Black',file:'black'},{name:'White',file:'white'}],
 };
 
