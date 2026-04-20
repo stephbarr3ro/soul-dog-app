@@ -11,29 +11,29 @@ const DOG_BREEDS = {
   "Small Breeds": ["American Bully", "Cocker Spaniel", "Dalmatian"],
 };
 
-const BREED_FURS: Record<string, { name: string; hex: string }[]> = {
-  'Golden Retriever':    [{ name:'Cream',hex:'#F5E6C8'},{ name:'Light Golden',hex:'#E8C87A'},{ name:'Golden',hex:'#D4A843'},{ name:'Dark Golden',hex:'#B8841A'},{ name:'Rich Dark Golden',hex:'#9A6A0A'},{ name:'Red Golden',hex:'#C05A20'}],
-  'Labrador':            [{ name:'Black',hex:'#1A1A1A'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Yellow',hex:'#E8C87A'}],
-  'French Bulldog':      [{ name:'Brindle',hex:'#5C4033'},{ name:'Fawn',hex:'#C8A46E'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Blue',hex:'#6B7B8D'},{ name:'White',hex:'#FFFFFF'},{ name:'Black And Tan',hex:'#2C1810'}],
-  'German Shepherd':     [{ name:'Black And Tan',hex:'#2C1810'},{ name:'Black And Red',hex:'#3D1A0A'},{ name:'Sable',hex:'#8B7355'},{ name:'Black',hex:'#1A1A1A'},{ name:'Black And Cream',hex:'#4A3728'},{ name:'Black And Silver',hex:'#3D3D3D'}],
-  'Poodle':              [{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'},{ name:'Apricot',hex:'#D4956A'},{ name:'Brown',hex:'#8B4513'},{ name:'Gray',hex:'#808080'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Red',hex:'#C0392B'}],
-  'Bulldog':             [{ name:'Brindle',hex:'#5C4033'},{ name:'Fawn',hex:'#C8A46E'},{ name:'White',hex:'#FFFFFF'},{ name:'Red',hex:'#C0392B'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Black And White',hex:'#2C2C2C'}],
-  'Beagle':              [{ name:'Tricolor',hex:'#8B6914'},{ name:'Brown And White',hex:'#A0522D'},{ name:'Tan And White',hex:'#C8A46E'},{ name:'Red And White',hex:'#C0392B'},{ name:'Lemon And White',hex:'#F5DEB3'},{ name:'Brown Tan White',hex:'#8B4513'}],
-  'Rottweiler':          [{ name:'Black And Red',hex:'#2C1810'}],
-  'Dachshund':           [{ name:'Red',hex:'#C0392B'},{ name:'Brown',hex:'#8B4513'},{ name:'Black And Tan',hex:'#2C1810'},{ name:'Black And Cream',hex:'#4A3728'},{ name:'Brown And Tan',hex:'#6B3A2A'}],
-  'Corgi':               [{ name:'Red',hex:'#C0392B'},{ name:'Fawn',hex:'#C8A46E'},{ name:'Sable',hex:'#8B7355'},{ name:'Tricolor Black And Red',hex:'#2C1810'},{ name:'Tricolor Black And Tan',hex:'#3D2B1A'},{ name:'Tricolor Fawn',hex:'#C8A46E'}],
-  'Australian Shepherd': [{ name:'Blue Merle',hex:'#6B7B8D'},{ name:'Red Merle',hex:'#8B4513'},{ name:'Black',hex:'#1A1A1A'},{ name:'Red',hex:'#C0392B'},{ name:'Tricolor',hex:'#2C1810'},{ name:'Black Bicolor',hex:'#2C2C2C'}],
-  'Boxer':               [{ name:'Fawn',hex:'#C8A46E'},{ name:'Brindle',hex:'#5C4033'},{ name:'White',hex:'#FFFFFF'},{ name:'Fawn Red',hex:'#C0392B'}],
-  'Husky':               [{ name:'Black',hex:'#1A1A1A'},{ name:'Gray',hex:'#808080'},{ name:'Red',hex:'#C0392B'},{ name:'Sable',hex:'#8B7355'},{ name:'White',hex:'#FFFFFF'}],
-  'Doberman':            [{ name:'Black',hex:'#1A1A1A'},{ name:'Brown',hex:'#8B4513'},{ name:'Blue',hex:'#6B7B8D'},{ name:'Fawn',hex:'#C8A46E'}],
-  'Pomeranian':          [{ name:'Orange',hex:'#E8822A'},{ name:'Gold',hex:'#DAA520'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'},{ name:'Sable',hex:'#8B7355'}],
-  'Chihuahua':           [{ name:'Fawn',hex:'#C8A46E'},{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'},{ name:'Black And Tan',hex:'#2C1810'}],
-  'Goldendoodle':        [{ name:'Gold',hex:'#DAA520'},{ name:'Apricot',hex:'#D4956A'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Red',hex:'#C0392B'}],
-  'Morkie':              [{ name:'Black And Tan',hex:'#2C1810'},{ name:'White',hex:'#FFFFFF'},{ name:'Black And White',hex:'#2C2C2C'},{ name:'Black',hex:'#1A1A1A'},{ name:'White And Gray',hex:'#D3D3D3'},{ name:'Black And Brown',hex:'#3D1A0A'},{ name:'Blue And Tan',hex:'#6B7B8D'},{ name:'Gray And Tan',hex:'#808080'},{ name:'Biewer',hex:'#F5F5DC'}],
-  'American Bully':      [{ name:'Black',hex:'#1A1A1A'},{ name:'Fawn',hex:'#C8A46E'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Blue',hex:'#6B7B8D'},{ name:'Sable',hex:'#8B7355'},{ name:'Pure Blue',hex:'#4A5568'}],
-  'Cocker Spaniel':      [{ name:'Gold',hex:'#DAA520'},{ name:'Black',hex:'#1A1A1A'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Red',hex:'#C0392B'},{ name:'Blue Roan',hex:'#6B7B8D'},{ name:'Brown And White',hex:'#8B4513'},{ name:'Tricolor',hex:'#2C1810'}],
-  'Dalmatian':           [{ name:'Black Spotted',hex:'#F5F5DC'},{ name:'Liver Spotted',hex:'#F5E6C8'}],
-  'default':             [{ name:'Brown',hex:'#8B4513'},{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'}],
+const BREED_FURS: Record<string, { name: string; file: string }[]> = {
+  'Golden Retriever':    [{name:'Cream',file:'cream'},{name:'Light Golden',file:'light-golden'},{name:'Golden',file:'golden'},{name:'Dark Golden',file:'dark-golden'},{name:'Rich Dark Golden',file:'rich-dark-golden'},{name:'Red Golden',file:'red-golden'}],
+  'Labrador':            [{name:'Black',file:'black'},{name:'Chocolate',file:'chocolate'},{name:'Yellow',file:'yellow'}],
+  'French Bulldog':      [{name:'Brindle',file:'brindle'},{name:'Brindle Black',file:'brindle-black'},{name:'Fawn',file:'fawn'},{name:'Fawn Black Mask',file:'fawn-black-mask'},{name:'Cream',file:'cream'},{name:'Blue',file:'blue'},{name:'White',file:'white'},{name:'Black And Tan',file:'black-and-tan'},{name:'Merle Black',file:'merle-black'},{name:'Merle Blue',file:'merle-blue'},{name:'Merle Chocolate',file:'merle-chocolate'},{name:'Pied White Black',file:'pied-white-black'},{name:'Pied White Blue',file:'pied-white-blue'},{name:'Pied White Red',file:'pied-white-red'}],
+  'German Shepherd':     [{name:'Black And Tan',file:'black-and-tan'},{name:'Black And Red',file:'black-and-red'},{name:'Black And Cream',file:'black-and-cream'},{name:'Black And Silver',file:'black-and-silver'},{name:'Black',file:'black'},{name:'Sable',file:'sable'}],
+  'Poodle':              [{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Apricot',file:'apricot'},{name:'Brown',file:'brown'},{name:'Gray',file:'gray'},{name:'Cream',file:'cream'},{name:'Red',file:'red'}],
+  'Bulldog':             [{name:'Brindle',file:'brindle'},{name:'Fawn',file:'fawn'},{name:'White',file:'white'},{name:'Red',file:'red'},{name:'Chocolate',file:'chocolate'},{name:'Black And White',file:'black-and-white'},{name:'Black And Tan',file:'black-and-tan'},{name:'Piebald',file:'piebald'},{name:'Smut',file:'smut'}],
+  'Beagle':              [{name:'Tricolor',file:'tricolor'},{name:'Brown And White',file:'brown-and-white'},{name:'Tan And White',file:'tan-and-white'},{name:'Red And White',file:'red-and-white'},{name:'Lemon And White',file:'lemon-and-white'},{name:'Brown Tan White',file:'brown-tan-white'}],
+  'Rottweiler':          [{name:'Black And Red',file:'black-and-red'}],
+  'Dachshund':           [{name:'Red',file:'red'},{name:'Brown',file:'brown'},{name:'Black And Tan',file:'black-and-tan'},{name:'Black And Cream',file:'black-and-cream'},{name:'Brown And Tan',file:'brown-and-tan'}],
+  'Corgi':               [{name:'Red',file:'red'},{name:'Fawn',file:'fawn'},{name:'Sable',file:'sable'},{name:'Tricolor Black And Red',file:'tricolor-black-and-red'},{name:'Tricolor Black And Tan',file:'tricolor-black-and-tan'},{name:'Tricolor Fawn',file:'tricolor-fawn'}],
+  'Australian Shepherd': [{name:'Blue Merle',file:'blue-merle'},{name:'Red Merle',file:'red-merle'},{name:'Black',file:'black'},{name:'Red',file:'red'},{name:'Tricolor',file:'tricolor'},{name:'Black Bicolor',file:'black-bicolor'}],
+  'Boxer':               [{name:'Fawn',file:'fawn'},{name:'Brindle',file:'brindle'},{name:'White',file:'white'},{name:'Fawn Red',file:'fawn-red'}],
+  'Husky':               [{name:'Black',file:'black'},{name:'Gray',file:'gray'},{name:'Red',file:'red'},{name:'Sable',file:'sable'},{name:'White',file:'white'}],
+  'Doberman':            [{name:'Black',file:'black'},{name:'Brown',file:'brown'},{name:'Blue',file:'blue'},{name:'Fawn',file:'fawn'}],
+  'Pomeranian':          [{name:'Gold',file:'gold'},{name:'Cream',file:'cream'},{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Sable',file:'sable'}],
+  'Chihuahua':           [{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Black And Tan',file:'black-and-tan'}],
+  'American Bully':      [{name:'Black',file:'black'},{name:'Fawn',file:'fawn'},{name:'Chocolate',file:'chocolate'},{name:'Blue',file:'blue'},{name:'Sable',file:'sable'},{name:'Pure Blue',file:'pure-blue'}],
+  'Cocker Spaniel':      [{name:'Gold',file:'gold'},{name:'Black',file:'black'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'},{name:'Blue Roan',file:'blue-roan'},{name:'Brown And White',file:'brown-and-white'},{name:'Brown Roan',file:'brown-roan'},{name:'Lemon And White',file:'lemon-and-white'},{name:'Orange Roan',file:'orange-roan'},{name:'Tricolor',file:'tricolor'}],
+  'Dalmatian':           [{name:'Black Spotted',file:'black-spotted'},{name:'Liver Spotted',file:'liver-spotted'}],
+  'Goldendoodle':        [{name:'Gold',file:'gold'},{name:'Apricot',file:'apricot'},{name:'Cream',file:'cream'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'}],
+  'Morkie':              [{name:'Black And Tan',file:'black-and-tan'},{name:'White',file:'white'},{name:'Black And White',file:'black-and-white'},{name:'Black',file:'black'},{name:'White And Gray',file:'white-and-gray'},{name:'Black And Brown',file:'black-and-brown'},{name:'Blue And Tan',file:'blue-and-tan'},{name:'Gray And Tan',file:'gray-and-tan'},{name:'Biewer',file:'biewer'}],
+  'default':             [{name:'Brown',file:'brown'},{name:'Black',file:'black'},{name:'White',file:'white'}],
 };
 
 const EYE_COLORS = [
@@ -108,7 +108,152 @@ export const Step2_Dogs = () => {
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Breed</label>
                   <div className="relative">
-                    <select value={dog.breed} onChange={(e) => updateDog(dog.id, { breed: e.target.value, furColor: (BREED_FURS[e.target.value] || BREED_FURS['default'])[0].name })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
+                    <select value={dog.breed} onChange={(e) => updateDog(dog.id, { breed: e.target.value, furColor: (BREED_FURS[e.target.value] || BREED_FURS['default'])[0].file })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
+                      {Object.entries(DOG_BREEDS).map(([group, breeds]) => (
+                        <optgroup key={group} label={group}>
+                          {breeds.map((b) => <option key={b} value={b}>{b}</option>)}
+                        </optgroup>
+                      ))}
+                    </select>
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-navy/20"><ArrowRight className="w-4 h-4 rotate-90" /></div>
+                  </div>
+                </div>
+
+                {/* Collar — always shown */}
+                <div className="space-y-3">
+                  <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Collar Color</label>
+                  <div className="flex flex-wrap gap-3">
+                    {COLLAR_COLORS.map((color) => (
+                      <button key={color.name} onClick={() => updateDog(dog.id, { collarColor: color.name })}
+                        className={cn("w-10 h-10 rounded-full border-2 transition-all hover:scale-110", dog.collarColor === color.name ? "border-gold scale-110 shadow-xl" : "border-gray-200 shadow-sm")}
+                        style={{ backgroundColor: color.hex }} title={color.name} />
+                    ))}
+                  </div>
+                </div>
+
+                {/* CLASSIC ONLY: Fur + Eye color */}
+                {!isTrueLikeness && (
+                  <>
+                    <div className="space-y-3">
+                      <label className="block text-[10px] fFur Color</label>
+                      <div className="relative">
+                        <select value={dog.furColor} onChange={(e) => updateDog(dog.id, { furColor: e.target.value })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
+                          {furOptions.map((color) => (
+                            <option key={color.file} value={color.file}>{color.name}</option>
+                          ))}
+                        </select>
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-navy/20"><ArrowRight className="w-4 h-4 rotate-90" /></div>
+                      </div>
+                </div>mport { Plus, Minus, Camera, Sparkles, ArrowRight } from 'lucide-react';
+import { useCustomizationStore } from '@/src/store/useCustomizationStore';
+import { cn } from '@/src/lib/utils';
+import { motion, AnimatePresence } from 'motion/react';
+import { uploadPhoto } from '@/src/lib/supabase';
+
+const DOG_BREEDS = {
+  "Most Popular": ["Golden Retriever", "Labrador", "French Bulldog", "German Shepherd", "Poodle", "Bulldog", "Beagle", "Rottweiler", "Dachshund", "Corgi", "Australian Shepherd", "Boxer", "Husky", "Doberman", "Pomeranian", "Chihuahua"],
+  "Designer / Mixed": ["Goldendoodle", "Morkie"],
+  "Small Breeds": ["American Bully", "Cocker Spaniel", "Dalmatian"],
+};
+
+const BREED_FURS: Record<string, { name: string; file: string }[]> = {
+  'Golden Retriever':    [{name:'Cream',file:'cream'},{name:'Light Golden',file:'light-golden'},{name:'Golden',file:'golden'},{name:'Dark Golden',file:'dark-golden'},{name:'Rich Dark Golden',file:'rich-dark-golden'},{name:'Red Golden',file:'red-golden'}],
+  'Labrador':            [{name:'Black',file:'black'},{name:'Chocolate',file:'chocolate'},{name:'Yellow',file:'yellow'}],
+  'French Bulldog':      [{name:'Brindle',file:'brindle'},{name:'Brindle Black',file:'brindle-black'},{name:'Fawn',file:'fawn'},{name:'Fawn Black Mask',file:'fawn-black-mask'},{name:'Cream',file:'cream'},{name:'Blue',file:'blue'},{name:'White',file:'white'},{name:'Black And Tan',file:'black-and-tan'},{name:'Merle Black',file:'merle-black'},{name:'Merle Blue',file:'merle-blue'},{name:'Merle Chocolate',file:'merle-chocolate'},{name:'Pied White Black',file:'pied-white-black'},{name:'Pied White Blue',file:'pied-white-blue'},{name:'Pied White Red',file:'pied-white-red'}],
+  'German Shepherd':     [{name:'Black And Tan',file:'black-and-tan'},{name:'Black And Red',file:'black-and-red'},{name:'Black And Cream',file:'black-and-cream'},{name:'Black And Silver',file:'black-and-silver'},{name:'Black',file:'black'},{name:'Sable',file:'sable'}],
+  'Poodle':              [{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Apricot',file:'apricot'},{name:'Brown',file:'brown'},{name:'Gray',file:'gray'},{name:'Cream',file:'cream'},{name:'Red',file:'red'}],
+  'Bulldog':             [{name:'Brindle',file:'brindle'},{name:'Fawn',file:'fawn'},{name:'White',file:'white'},{name:'Red',file:'red'},{name:'Chocolate',file:'chocolate'},{name:'Black And White',file:'black-and-white'},{name:'Black And Tan',file:'black-and-tan'},{name:'Piebald',file:'piebald'},{name:'Smut',file:'smut'}],
+  'Beagle':              [{name:'Tricolor',file:'tricolor'},{name:'Brown And White',file:'brown-and-white'},{name:'Tan And White',file:'tan-and-white'},{name:'Red And White',file:'red-and-white'},{name:'Lemon And White',file:'lemon-and-white'},{name:'Brown Tan White',file:'brown-tan-white'}],
+  'Rottweiler':          [{name:'Black And Red',file:'black-and-red'}],
+  'Dachshund':           [{name:'Red',file:'red'},{name:'Brown',file:'brown'},{name:'Black And Tan',file:'black-and-tan'},{name:'Black And Cream',file:'black-and-cream'},{name:'Brown And Tan',file:'brown-and-tan'}],
+  'Corgi':               [{name:'Red',file:'red'},{name:'Fawn',file:'fawn'},{name:'Sable',file:'sable'},{name:'Tricolor Black And Red',file:'tricolor-black-and-red'},{name:'Tricolor Black And Tan',file:'tricolor-black-and-tan'},{name:'Tricolor Fawn',file:'tricolor-fawn'}],
+  'Australian Shepherd': [{name:'Blue Merle',file:'blue-merle'},{name:'Red Merle',file:'red-merle'},{name:'Black',file:'black'},{name:'Red',file:'red'},{name:'Tricolor',file:'tricolor'},{name:'Black Bicolor',file:'black-bicolor'}],
+  'Boxer':               [{name:'Fawn',file:'fawn'},{name:'Brindle',file:'brindle'},{name:'White',file:'white'},{name:'Fawn Red',file:'fawn-red'}],
+  'Husky':               [{name:'Black',file:'black'},{name:'Gray',file:'gray'},{name:'Red',file:'red'},{name:'Sable',file:'sable'},{name:'White',file:'white'}],
+  'Doberman':            [{name:'Black',file:'black'},{name:'Brown',file:'brown'},{name:'Blue',file:'blue'},{name:'Fawn',file:'fawn'}],
+  'Pomeranian':          [{name:'Gold',file:'gold'},{name:'Cream',file:'cream'},{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Sable',file:'sable'}],
+  'Chihuahua':           [{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Black And Tan',file:'black-and-tan'}],
+  'American Bully':      [{name:'Black',file:'black'},{name:'Fawn',file:'fawn'},{name:'Chocolate',file:'chocolate'},{name:'Blue',file:'blue'},{name:'Sable',file:'sable'},{name:'Pure Blue',file:'pure-blue'}],
+  'Cocker Spaniel':      [{name:'Gold',file:'gold'},{name:'Black',file:'black'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'},{name:'Blue Roan',file:'blue-roan'},{name:'Brown And White',file:'brown-and-white'},{name:'Brown Roan',file:'brown-roan'},{name:'Lemon And White',file:'lemon-and-white'},{name:'Orange Roan',file:'orange-roan'},{name:'Tricolor',file:'tricolor'}],
+  'Dalmatian':           [{name:'Black Spotted',file:'black-spotted'},{name:'Liver Spotted',file:'liver-spotted'}],
+  'Goldendoodle':        [{name:'Gold',file:'gold'},{name:'Apricot',file:'apricot'},{name:'Cream',file:'cream'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'}],
+  'Morkie':              [{name:'Black And Tan',file:'black-and-tan'},{name:'White',file:'white'},{name:'Black And White',file:'black-and-white'},{name:'Black',file:'black'},{name:'White And Gray',file:'white-and-gray'},{name:'Black And Brown',file:'black-and-brown'},{name:'Blue And Tan',file:'blue-and-tan'},{name:'Gray And Tan',file:'gray-and-tan'},{name:'Biewer',file:'biewer'}],
+  'default':             [{name:'Brown',file:'brown'},{name:'Black',file:'black'},{name:'White',file:'white'}],
+};
+
+const EYE_COLORS = [
+  { name: 'Brown', hex: '#8B5E1A' }, { name: 'Dark Brown', hex: '#4A2E0A' },
+  { name: 'Amber', hex: '#C8941A' }, { name: 'Hazel', hex: '#9A7830' },
+  { name: 'Green', hex: '#4A7A2A' }, { name: 'Blue', hex: '#3A6AA8' },
+  { name: 'Gray', hex: '#6A7A88' }, { name: 'Black', hex: '#1E1410' },
+];
+
+const COLLAR_COLORS = [
+  { name: 'Sky Blue', hex: '#87CEEB' }, { name: 'Red', hex: '#E53935' },
+  { name: 'Green', hex: '#43A047' }, { name: 'Yellow', hex: '#FDD835' },
+  { name: 'Orange', hex: '#FB8C00' }, { name: 'Purple', hex: '#8E24AA' },
+  { name: 'Pink', hex: '#E91E8C' }, { name: 'Navy', hex: '#1A237E' },
+  { name: 'Black', hex: '#212121' }, { name: 'White', hex: '#F5F5F5' },
+];
+
+export const Step2_Dogs = () => {
+  const { dogs, addDog, removeDog, updateDog, edition } = useCustomizationStore();
+  const [isUploading, setIsUploading] = React.useState<string | null>(null);
+  const isTrueLikeness = edition === 'true-likeness';
+
+  const handlePhotoUpload = async (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsUploading(id);
+    const url = await uploadPhoto(file, 'dogs');
+    if (url) updateDog(id, { photo: url });
+    setIsUploading(null);
+  };
+
+  return (
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+      <div className="space-y-3">
+        <div className="flex items-center gap-3 text-gold">
+          <Sparkles className="w-5 h-5" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em]">The Companions</span>
+        </div>
+        <h2 className="text-5xl font-display text-navy leading-tight">Customize Your <br/><span className="italic">Dogs</span></h2>
+        <p className="text-navy/60 text-lg leading-relaxed max-w-md">
+          {isTrueLikeness
+            ? "Upload a photo of your dog and our artists will hand-draw them perfectly."
+            : "Capture the unique spirit of your furry best friends."}
+        </p>
+      </div>
+
+      <AnimatePresence mode="popLayout">
+        {dogs.map((dog, index) => {
+          const furOptions = BREED_FURS[dog.breed] || BREED_FURS['default'];
+          return (
+            <motion.div key={dog.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-navy/5 border border-gray-100">
+              <div className="flex justify-between items-center mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-navy text-cream flex items-center justify-center font-display text-lg">{index + 1}</div>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-navy/40">Dog Details</span>
+                </div>
+                {dogs.length > 1 && (
+                  <button onClick={() => removeDog(dog.id)} className="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-gray-300 hover:bg-red-50 hover:text-red-400 transition-all">
+                    <Minus className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+
+              <div className="grid gap-8">
+                {/* Name */}
+                <div className="space-y-3">
+                  <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Dog's Name</label>
+                  <input type="text" value={dog.name} onChange={(e) => updateDog(dog.id, { name: e.target.value })} placeholder="Enter dog's name" className="w-full p-5 rounded-2xl border border-gray-100 focus:border-gold outline-none text-navy font-medium placeholder:text-navy/20 bg-gray-50/30" />
+                </div>
+
+                {/* Breed */}
+                <div className="space-y-3">
+                  <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Breed</label>
+                  <div className="relative">
+                    <select value={dog.breed} onChange={(e) => updateDog(dog.id, { breed: e.target.value, furColor: (BREED_FURS[e.target.value] || BREED_FURS['default'])[0].file })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
                       {Object.entries(DOG_BREEDS).map(([group, breeds]) => (
                         <optgroup key={group} label={group}>
                           {breeds.map((b) => <option key={b} value={b}>{b}</option>)}
