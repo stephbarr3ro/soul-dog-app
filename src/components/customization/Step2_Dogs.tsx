@@ -6,22 +6,34 @@ import { motion, AnimatePresence } from 'motion/react';
 import { uploadPhoto } from '@/src/lib/supabase';
 
 const DOG_BREEDS = {
-  "Most Popular": ["Golden Retriever", "Labrador", "French Bulldog", "German Shepherd", "Poodle", "Bulldog", "Beagle", "Rottweiler", "Dachshund", "Corgi", "Australian Shepherd", "Yorkshire Terrier", "Boxer", "Shih Tzu", "Husky", "Doberman", "Schnauzer"],
-  "Designer / Mixed": ["Goldendoodle", "Labradoodle", "Morkie", "Chihuahua"],
-  "Small Breeds": ["Pomeranian", "Dalmatian", "American Bully", "Cocker Spaniel"],
+  "Most Popular": ["Golden Retriever", "Labrador", "French Bulldog", "German Shepherd", "Poodle", "Bulldog", "Beagle", "Rottweiler", "Dachshund", "Corgi", "Australian Shepherd", "Boxer", "Husky", "Doberman", "Pomeranian", "Chihuahua"],
+  "Designer / Mixed": ["Goldendoodle", "Morkie"],
+  "Small Breeds": ["American Bully", "Cocker Spaniel", "Dalmatian"],
 };
 
 const BREED_FURS: Record<string, { name: string; hex: string }[]> = {
-  'Golden Retriever': [
-    { name: 'Cream', hex: '#F5E6C8' }, { name: 'Light Golden', hex: '#E8C87A' },
-    { name: 'Golden', hex: '#D4A843' }, { name: 'Dark Golden', hex: '#B8841A' },
-    { name: 'Rich Dark Golden', hex: '#9A6A0A' }, { name: 'Red Golden', hex: '#C05A20' },
-  ],
-  'default': [
-    { name: 'White', hex: '#FFFFFF' }, { name: 'Cream', hex: '#F5F5DC' },
-    { name: 'Golden', hex: '#DAA520' }, { name: 'Brown', hex: '#8B4513' },
-    { name: 'Black', hex: '#1A1A1A' },
-  ],
+  'Golden Retriever':    [{ name:'Cream',hex:'#F5E6C8'},{ name:'Light Golden',hex:'#E8C87A'},{ name:'Golden',hex:'#D4A843'},{ name:'Dark Golden',hex:'#B8841A'},{ name:'Rich Dark Golden',hex:'#9A6A0A'},{ name:'Red Golden',hex:'#C05A20'}],
+  'Labrador':            [{ name:'Black',hex:'#1A1A1A'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Yellow',hex:'#E8C87A'}],
+  'French Bulldog':      [{ name:'Brindle',hex:'#5C4033'},{ name:'Fawn',hex:'#C8A46E'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Blue',hex:'#6B7B8D'},{ name:'White',hex:'#FFFFFF'},{ name:'Black And Tan',hex:'#2C1810'}],
+  'German Shepherd':     [{ name:'Black And Tan',hex:'#2C1810'},{ name:'Black And Red',hex:'#3D1A0A'},{ name:'Sable',hex:'#8B7355'},{ name:'Black',hex:'#1A1A1A'},{ name:'Black And Cream',hex:'#4A3728'},{ name:'Black And Silver',hex:'#3D3D3D'}],
+  'Poodle':              [{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'},{ name:'Apricot',hex:'#D4956A'},{ name:'Brown',hex:'#8B4513'},{ name:'Gray',hex:'#808080'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Red',hex:'#C0392B'}],
+  'Bulldog':             [{ name:'Brindle',hex:'#5C4033'},{ name:'Fawn',hex:'#C8A46E'},{ name:'White',hex:'#FFFFFF'},{ name:'Red',hex:'#C0392B'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Black And White',hex:'#2C2C2C'}],
+  'Beagle':              [{ name:'Tricolor',hex:'#8B6914'},{ name:'Brown And White',hex:'#A0522D'},{ name:'Tan And White',hex:'#C8A46E'},{ name:'Red And White',hex:'#C0392B'},{ name:'Lemon And White',hex:'#F5DEB3'},{ name:'Brown Tan White',hex:'#8B4513'}],
+  'Rottweiler':          [{ name:'Black And Red',hex:'#2C1810'}],
+  'Dachshund':           [{ name:'Red',hex:'#C0392B'},{ name:'Brown',hex:'#8B4513'},{ name:'Black And Tan',hex:'#2C1810'},{ name:'Black And Cream',hex:'#4A3728'},{ name:'Brown And Tan',hex:'#6B3A2A'}],
+  'Corgi':               [{ name:'Red',hex:'#C0392B'},{ name:'Fawn',hex:'#C8A46E'},{ name:'Sable',hex:'#8B7355'},{ name:'Tricolor Black And Red',hex:'#2C1810'},{ name:'Tricolor Black And Tan',hex:'#3D2B1A'},{ name:'Tricolor Fawn',hex:'#C8A46E'}],
+  'Australian Shepherd': [{ name:'Blue Merle',hex:'#6B7B8D'},{ name:'Red Merle',hex:'#8B4513'},{ name:'Black',hex:'#1A1A1A'},{ name:'Red',hex:'#C0392B'},{ name:'Tricolor',hex:'#2C1810'},{ name:'Black Bicolor',hex:'#2C2C2C'}],
+  'Boxer':               [{ name:'Fawn',hex:'#C8A46E'},{ name:'Brindle',hex:'#5C4033'},{ name:'White',hex:'#FFFFFF'},{ name:'Fawn Red',hex:'#C0392B'}],
+  'Husky':               [{ name:'Black',hex:'#1A1A1A'},{ name:'Gray',hex:'#808080'},{ name:'Red',hex:'#C0392B'},{ name:'Sable',hex:'#8B7355'},{ name:'White',hex:'#FFFFFF'}],
+  'Doberman':            [{ name:'Black',hex:'#1A1A1A'},{ name:'Brown',hex:'#8B4513'},{ name:'Blue',hex:'#6B7B8D'},{ name:'Fawn',hex:'#C8A46E'}],
+  'Pomeranian':          [{ name:'Orange',hex:'#E8822A'},{ name:'Gold',hex:'#DAA520'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'},{ name:'Sable',hex:'#8B7355'}],
+  'Chihuahua':           [{ name:'Fawn',hex:'#C8A46E'},{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'},{ name:'Black And Tan',hex:'#2C1810'}],
+  'Goldendoodle':        [{ name:'Gold',hex:'#DAA520'},{ name:'Apricot',hex:'#D4956A'},{ name:'Cream',hex:'#F5E6C8'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Red',hex:'#C0392B'}],
+  'Morkie':              [{ name:'Black And Tan',hex:'#2C1810'},{ name:'White',hex:'#FFFFFF'},{ name:'Black And White',hex:'#2C2C2C'},{ name:'Black',hex:'#1A1A1A'},{ name:'White And Gray',hex:'#D3D3D3'},{ name:'Black And Brown',hex:'#3D1A0A'},{ name:'Blue And Tan',hex:'#6B7B8D'},{ name:'Gray And Tan',hex:'#808080'},{ name:'Biewer',hex:'#F5F5DC'}],
+  'American Bully':      [{ name:'Black',hex:'#1A1A1A'},{ name:'Fawn',hex:'#C8A46E'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Blue',hex:'#6B7B8D'},{ name:'Sable',hex:'#8B7355'},{ name:'Pure Blue',hex:'#4A5568'}],
+  'Cocker Spaniel':      [{ name:'Gold',hex:'#DAA520'},{ name:'Black',hex:'#1A1A1A'},{ name:'Chocolate',hex:'#5C3317'},{ name:'Red',hex:'#C0392B'},{ name:'Blue Roan',hex:'#6B7B8D'},{ name:'Brown And White',hex:'#8B4513'},{ name:'Tricolor',hex:'#2C1810'}],
+  'Dalmatian':           [{ name:'Black Spotted',hex:'#F5F5DC'},{ name:'Liver Spotted',hex:'#F5E6C8'}],
+  'default':             [{ name:'Brown',hex:'#8B4513'},{ name:'Black',hex:'#1A1A1A'},{ name:'White',hex:'#FFFFFF'}],
 };
 
 const EYE_COLORS = [
