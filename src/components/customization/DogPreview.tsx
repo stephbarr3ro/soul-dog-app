@@ -51,8 +51,8 @@ export const DogPreview: React.FC<{ dog: Dog; size?: number }> = ({ dog, size = 
   useEffect(() => {
     const id = ++renderIdRef.current;
 
-    Promise.all([loadImg(furUrl), loadImg(eyeUrl), loadImg(collarUrl)])
-      .then(([furImg, eyeImg, collarImg]) => {
+    Promise.all([loadImg(eyeUrl), loadImg(furUrl), loadImg(collarUrl)])
+      .then(([eyeImg, furImg, collarImg]) => {
         if (id !== renderIdRef.current) return; // stale render — a newer one is in flight
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -65,9 +65,9 @@ export const DogPreview: React.FC<{ dog: Dog; size?: number }> = ({ dog, size = 
         off.width  = size;
         off.height = size;
         const offCtx = off.getContext('2d')!;
-        if (furImg)    offCtx.drawImage(furImg,    0, 0, size, size); // base body
-        if (eyeImg)    offCtx.drawImage(eyeImg,    0, 0, size, size); // eye color overlay
-        if (collarImg) offCtx.drawImage(collarImg, 0, 0, size, size); // collar overlay
+        if (eyeImg)    offCtx.drawImage(eyeImg,    0, 0, size, size);
+        if (furImg)    offCtx.drawImage(furImg,    0, 0, size, size);
+        if (collarImg) offCtx.drawImage(collarImg, 0, 0, size, size);
 
         ctx.clearRect(0, 0, size, size);
         ctx.drawImage(off, 0, 0); // atomic swap — no blank frame on visible canvas
