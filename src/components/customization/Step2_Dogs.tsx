@@ -6,10 +6,38 @@ import { motion, AnimatePresence } from 'motion/react';
 import { uploadPhoto } from '@/src/lib/supabase';
 
 
-const DOG_BREEDS = {
-  "Most Popular": ["Golden Retriever", "Labrador", "French Bulldog", "German Shepherd", "Poodle", "Bulldog", "Beagle", "Rottweiler", "Dachshund", "Corgi", "Australian Shepherd", "Boxer", "Husky", "Doberman", "Pomeranian", "Chihuahua"],
-  "Designer / Mixed": ["Goldendoodle", "Morkie"],
-  "Small Breeds": ["American Bully", "Cocker Spaniel", "Dalmatian"],
+const AVAILABLE_BREEDS = new Set([
+  'Golden Retriever', 'Labrador', 'French Bulldog', 'German Shepherd', 'Poodle',
+  'Bulldog', 'Beagle', 'Rottweiler', 'Dachshund', 'Corgi', 'Australian Shepherd',
+  'Boxer', 'Husky', 'Doberman', 'Goldendoodle', 'Morkie',
+  'Chihuahua', 'Pomeranian', 'Cocker Spaniel', 'American Bully', 'Dalmatian',
+]);
+
+const DOG_BREEDS: Record<string, string[]> = {
+  "Most Popular": [
+    "Golden Retriever", "Labrador", "French Bulldog", "German Shepherd", "Poodle",
+    "Bulldog", "Beagle", "Rottweiler", "Dachshund", "Corgi", "Australian Shepherd",
+    "Yorkshire Terrier", "Boxer", "Shih Tzu", "Husky", "Doberman",
+    "Schnauzer", "Border Collie", "Pug", "Akita",
+  ],
+  "Designer / Mixed": [
+    "Goldendoodle", "Morkie", "Labradoodle", "Bernedoodle", "Cavapoo",
+    "Cockapoo", "Maltipoo", "Pomsky", "Sheepadoodle", "Aussiedoodle",
+    "Schnoodle", "Yorkipoo", "Cavachon", "Springerdoodle", "Bordoodle",
+  ],
+  "Medium & Large": [
+    "American Bully", "Dalmatian", "Bernese Mountain Dog", "Great Dane", "Newfoundland",
+    "Saint Bernard", "Samoyed", "Weimaraner", "Vizsla", "Rhodesian Ridgeback",
+    "Belgian Malinois", "Whippet", "Irish Setter", "Cane Corso", "Mastiff",
+    "Bloodhound", "Basset Hound", "Alaskan Malamute", "English Springer Spaniel", "Chow Chow",
+  ],
+  "Small Breeds": [
+    "Chihuahua", "Pomeranian", "Cocker Spaniel", "Maltese", "Bichon Frise",
+    "Cavalier King Charles", "Boston Terrier", "Jack Russell Terrier", "Miniature Schnauzer",
+    "Lhasa Apso", "Papillon", "Pekingese", "Italian Greyhound", "Miniature Pinscher",
+    "Brussels Griffon", "Toy Poodle", "Affenpinscher", "West Highland Terrier",
+    "Cairn Terrier", "Norwich Terrier",
+  ],
 };
 
 const BREED_FURS: Record<string, { name: string; file: string }[]> = {
@@ -109,10 +137,22 @@ export const Step2_Dogs = () => {
                 <div className="space-y-3">
                   <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Breed</label>
                   <div className="relative">
-                    <select value={dog.breed} onChange={(e) => updateDog(dog.id, { breed: e.target.value, furColor: (BREED_FURS[e.target.value] || BREED_FURS['default'])[0].file })} className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none">
+                    <select
+                      value={dog.breed}
+                      onChange={(e) => {
+                        const breed = e.target.value;
+                        if (!AVAILABLE_BREEDS.has(breed)) return;
+                        updateDog(dog.id, { breed, furColor: (BREED_FURS[breed] || BREED_FURS['default'])[0].file });
+                      }}
+                      className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50/30 text-navy font-medium outline-none focus:border-gold appearance-none"
+                    >
                       {Object.entries(DOG_BREEDS).map(([group, breeds]) => (
                         <optgroup key={group} label={group}>
-                          {breeds.map((b) => <option key={b} value={b}>{b}</option>)}
+                          {breeds.map((b) => (
+                            <option key={b} value={b} disabled={!AVAILABLE_BREEDS.has(b)}>
+                              {AVAILABLE_BREEDS.has(b) ? b : `${b} (Coming Soon)`}
+                            </option>
+                          ))}
                         </optgroup>
                       ))}
                     </select>
