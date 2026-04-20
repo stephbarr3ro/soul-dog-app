@@ -3,7 +3,6 @@ import { Dog } from '@/src/store/useCustomizationStore';
 
 const CDN = '/dogs';
 
-// Map breed name to folder name
 const BREED_FOLDER: Record<string, string> = {
   'Golden Retriever':    'golden-retriever',
   'Labrador':            'labrador',
@@ -16,6 +15,7 @@ const BREED_FOLDER: Record<string, string> = {
   'Dachshund':           'dachshund',
   'Corgi':               'corgi',
   'Australian Shepherd': 'australian-shepherd',
+  'Boxer':               'boxer',
   'Husky':               'husky',
   'Doberman':            'doberman',
   'Pomeranian':          'pomeranian',
@@ -25,10 +25,8 @@ const BREED_FOLDER: Record<string, string> = {
   'Dalmatian':           'dalmatian',
   'Goldendoodle':        'goldendoodle',
   'Morkie':              'morkie',
-  'Boxer':               'boxer',
 };
 
-// Map collar color names to file names
 const COLLAR_FILE: Record<string, string> = {
   'Sky Blue': 'skyblue',
   'Red':      'red',
@@ -42,7 +40,6 @@ const COLLAR_FILE: Record<string, string> = {
   'White':    'white',
 };
 
-// Map eye color names to file names
 const EYE_FILE: Record<string, string> = {
   'Brown':      'brown',
   'Dark Brown': 'dark-brown',
@@ -54,6 +51,11 @@ const EYE_FILE: Record<string, string> = {
   'Black':      'black',
 };
 
+// Convert fur color name to filename: "Black And Tan" -> "black-and-tan"
+function furToFile(furColor: string): string {
+  return furColor.toLowerCase().replace(/ /g, '-');
+}
+
 const layer: React.CSSProperties = {
   position: 'absolute',
   inset: 0,
@@ -63,19 +65,19 @@ const layer: React.CSSProperties = {
 };
 
 export const DogPreview: React.FC<{ dog: Dog; size?: number }> = ({ dog, size = 300 }) => {
-  const folder = BREED_FOLDER[dog.breed] || 'golden-retriever';
-  const furFile    = dog.furColor?.toLowerCase().replace(/ /g, '-') || 'golden';
+  const folder     = BREED_FOLDER[dog.breed] || 'golden-retriever';
+  const furFile    = furToFile(dog.furColor || 'golden');
   const eyeFile    = EYE_FILE[dog.eyeColor] || 'brown';
   const collarFile = COLLAR_FILE[dog.collarColor] || 'red';
 
-  const furUrl    = `${CDN}/${folder}/fur/${furFile}.webp`;
   const eyeUrl    = `${CDN}/${folder}/eye/${eyeFile}.webp`;
+  const furUrl    = `${CDN}/${folder}/fur/${furFile}.webp`;
   const collarUrl = `${CDN}/${folder}/collar/${collarFile}.webp`;
 
   return (
     <div style={{ position: 'relative', width: size, height: size, maxWidth: '100%', margin: '0 auto' }}>
-      <img src={furUrl}    alt="fur"    style={{ ...layer, zIndex: 10 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
-      <img src={eyeUrl}    alt="eyes"   style={{ ...layer, zIndex: 20 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+      <img src={eyeUrl}    alt="eyes"   style={{ ...layer, zIndex: 10 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+      <img src={furUrl}    alt="fur"    style={{ ...layer, zIndex: 20 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
       <img src={collarUrl} alt="collar" style={{ ...layer, zIndex: 30 }} onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
     </div>
   );
