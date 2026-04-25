@@ -18,7 +18,7 @@ const AVAILABLE_BREEDS = new Set([
   'Pug', 'Samoyed', 'Saint Bernard',
   'Italian Greyhound', 'Papillon', 'Sheepadoodle', 'Irish Setter',
   'English Springer Spaniel', 'Belgian Malinois', 'Rhodesian Ridgeback',
-  'Vizsla', 'Weimaraner',
+  'Vizsla', 'Weimaraner', 'Schnauzer',
 ]);
 
 const DOG_BREEDS: Record<string, string[]> = {
@@ -98,6 +98,7 @@ const BREED_FURS: Record<string, { name: string; file: string }[]> = {
   'Rhodesian Ridgeback': [{name:'Red Wheaten',file:'red-wheaten'},{name:'Light Wheaten',file:'light-wheaten'}],
   'Vizsla':              [{name:'Fawn',file:'fawn'},{name:'Gold Ginger',file:'gold-ginger'},{name:'Dark Gold',file:'dark-gold'}],
   'Weimaraner':          [{name:'Mouse Grey',file:'mouse-grey'},{name:'Dark Grey',file:'dark-grey'},{name:'Roe Grey',file:'roe-grey'}],
+  'Schnauzer':           [{name:'Salt & Pepper',file:'salt-and-pepper'},{name:'Black',file:'black'},{name:'Black And White',file:'black-and-white'},{name:'White',file:'white'}],
   'default':             [{name:'Brown',file:'brown'},{name:'Black',file:'black'},{name:'White',file:'white'}],
 };
 

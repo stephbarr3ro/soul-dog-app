@@ -26,6 +26,7 @@ const BREED_FOLDER: Record<string, string> = {
   'English Springer Spaniel': 'english-springer-spaniel',
   'Belgian Malinois': 'belgian-malinois', 'Rhodesian Ridgeback': 'rhodesian-ridgeback',
   'Vizsla': 'vizsla', 'Weimaraner': 'weimaraner',
+  'Schnauzer': 'schnauzer',
 };
 
 const COLLAR_FILE: Record<string, string> = {
