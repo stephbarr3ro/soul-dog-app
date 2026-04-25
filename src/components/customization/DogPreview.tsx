@@ -14,6 +14,12 @@ const BREED_FOLDER: Record<string, string> = {
   'Dalmatian': 'dalmatian', 'Goldendoodle': 'goldendoodle', 'Morkie': 'morkie',
   'Labradoodle': 'labradoodle', 'Pitbull': 'pitbull',
   'Miniature Schnauzer': 'schnauzer-miniature', 'Shih Tzu': 'shih-tzu',
+  'Yorkshire Terrier': 'yorkshire-terrier', 'Akita': 'akita',
+  'Bernedoodle': 'bernedoodle', 'Bernese Mountain Dog': 'bernese-mountain-dog',
+  'Border Collie': 'border-collie', 'Boston Terrier': 'boston-terrier',
+  'Cavapoo': 'cavapoo', 'Chow Chow': 'chow-chow', 'Great Dane': 'great-dane',
+  'Jack Russell Terrier': 'jack-russell-terrier', 'Maltese': 'maltese',
+  'Newfoundland': 'newfoundland', 'Pug': 'pug', 'Samoyed': 'samoyed',
 };
 
 const COLLAR_FILE: Record<string, string> = {

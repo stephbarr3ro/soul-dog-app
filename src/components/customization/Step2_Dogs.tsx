@@ -12,6 +12,10 @@ const AVAILABLE_BREEDS = new Set([
   'Boxer', 'Husky', 'Doberman', 'Goldendoodle', 'Morkie',
   'Chihuahua', 'Pomeranian', 'Cocker Spaniel', 'American Bully', 'Dalmatian',
   'Labradoodle', 'Pitbull', 'Miniature Schnauzer', 'Shih Tzu',
+  'Yorkshire Terrier', 'Akita', 'Bernedoodle', 'Bernese Mountain Dog',
+  'Border Collie', 'Boston Terrier', 'Cavapoo', 'Chow Chow',
+  'Great Dane', 'Jack Russell Terrier', 'Maltese', 'Newfoundland',
+  'Pug', 'Samoyed',
 ]);
 
 const DOG_BREEDS: Record<string, string[]> = {
@@ -67,6 +71,20 @@ const BREED_FURS: Record<string, { name: string; file: string }[]> = {
   'Pitbull':             [{name:'Fawn',file:'fawn'},{name:'Blue Nose',file:'blue-nose'},{name:'Red Nose',file:'red-nose'},{name:'Gray',file:'gray'}],
   'Miniature Schnauzer': [{name:'Salt & Pepper',file:'salt-and-pepper'},{name:'Black',file:'black'},{name:'Solid Black',file:'black-pure'}],
   'Shih Tzu':            [{name:'Gold',file:'gold'},{name:'White',file:'white'},{name:'Black',file:'black'},{name:'White And Gold',file:'white-and-gold'},{name:'Black And White',file:'black-and-white'},{name:'Gray And White',file:'gray-and-white'},{name:'Red And White',file:'red-and-white'},{name:'Tricolor',file:'tricolor'}],
+  'Yorkshire Terrier':   [{name:'Black And Tan',file:'black-and-tan'},{name:'Blue And Tan',file:'blue-and-tan'},{name:'Black And Gold',file:'black-and-gold'},{name:'Chocolate',file:'chocolate'},{name:'Beige',file:'beige'}],
+  'Akita':               [{name:'Red Fawn',file:'red-fawn'},{name:'Red',file:'red'},{name:'Sesame',file:'sesame'},{name:'White',file:'white'},{name:'Black',file:'black'}],
+  'Bernedoodle':         [{name:'Tricolor',file:'tricolor'},{name:'Black And White',file:'black-and-white'},{name:'Phantom',file:'phantom'},{name:'Sable',file:'sable'},{name:'Chocolate',file:'chocolate'},{name:'Blue Merle',file:'blue-merle'},{name:'Brown Merle',file:'brown-merle'}],
+  'Bernese Mountain Dog':[{name:'Tricolor',file:'tricolor'},{name:'Tuxedo',file:'tuxedo'},{name:'Black',file:'black'},{name:'Tan',file:'tan'},{name:'White',file:'white'}],
+  'Border Collie':       [{name:'Black',file:'black'},{name:'Tricolor',file:'tricolor'},{name:'Red',file:'red'},{name:'Blue',file:'blue'},{name:'Lilac',file:'lilac'},{name:'Tricolor Brown',file:'tricolor-brown'}],
+  'Boston Terrier':      [{name:'Black',file:'black'},{name:'Brindle',file:'brindle'}],
+  'Cavapoo':             [{name:'Gold',file:'gold'},{name:'Blenheim',file:'blenheim'},{name:'Cream',file:'cream'},{name:'Red',file:'red'},{name:'Phantom',file:'phantom'},{name:'Tricolor',file:'tricolor'},{name:'Bicolor Brown',file:'bicolor-brown'}],
+  'Chow Chow':           [{name:'Red',file:'red'},{name:'Black',file:'black'},{name:'Cream',file:'cream'},{name:'Cinnamon',file:'cinnamon'}],
+  'Great Dane':          [{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'Brindle',file:'brindle'},{name:'Blue',file:'blue'},{name:'Harlequin',file:'harlequin'},{name:'Mantle',file:'mantle'}],
+  'Jack Russell Terrier':[{name:'Black And White',file:'black-and-white'},{name:'Fawn',file:'fawn'},{name:'Tricolor',file:'tricolor'}],
+  'Maltese':             [{name:'White',file:'white'},{name:'Beige',file:'beige'}],
+  'Newfoundland':        [{name:'Black',file:'black'},{name:'Black And White',file:'black-and-white'},{name:'Chocolate',file:'chocolate'},{name:'Gray',file:'gray'}],
+  'Pug':                 [{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'Gray',file:'gray'}],
+  'Samoyed':             [{name:'White',file:'white'},{name:'Cream',file:'cream'},{name:'White Cream',file:'white-cream'}],
   'default':             [{name:'Brown',file:'brown'},{name:'Black',file:'black'},{name:'White',file:'white'}],
 };
 
