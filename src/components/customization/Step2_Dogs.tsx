@@ -15,7 +15,7 @@ const AVAILABLE_BREEDS = new Set([
   'Yorkshire Terrier', 'Akita', 'Bernedoodle', 'Bernese Mountain Dog',
   'Border Collie', 'Boston Terrier', 'Cavapoo', 'Chow Chow',
   'Great Dane', 'Jack Russell Terrier', 'Maltese', 'Newfoundland',
-  'Pug', 'Samoyed',
+  'Pug', 'Samoyed', 'Saint Bernard',
 ]);
 
 const DOG_BREEDS: Record<string, string[]> = {
@@ -85,6 +85,7 @@ const BREED_FURS: Record<string, { name: string; file: string }[]> = {
   'Newfoundland':        [{name:'Black',file:'black'},{name:'Black And White',file:'black-and-white'},{name:'Chocolate',file:'chocolate'},{name:'Gray',file:'gray'}],
   'Pug':                 [{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'Gray',file:'gray'}],
   'Samoyed':             [{name:'White',file:'white'},{name:'Cream',file:'cream'},{name:'White Cream',file:'white-cream'}],
+  'Saint Bernard':       [{name:'Brown And White',file:'brown-and-white'}],
   'default':             [{name:'Brown',file:'brown'},{name:'Black',file:'black'},{name:'White',file:'white'}],
 };
 

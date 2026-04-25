@@ -20,6 +20,7 @@ const BREED_FOLDER: Record<string, string> = {
   'Cavapoo': 'cavapoo', 'Chow Chow': 'chow-chow', 'Great Dane': 'great-dane',
   'Jack Russell Terrier': 'jack-russell-terrier', 'Maltese': 'maltese',
   'Newfoundland': 'newfoundland', 'Pug': 'pug', 'Samoyed': 'samoyed',
+  'Saint Bernard': 'saint-bernard',
 };
 
 const COLLAR_FILE: Record<string, string> = {
