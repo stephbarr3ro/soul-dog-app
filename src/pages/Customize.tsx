@@ -24,7 +24,48 @@ const [activeChildIndex,setActiveChildIndex]=useState(0);
 useEffect(()=>{const e=searchParams.get('edition');if(e==='classic'||e==='true-likeness'){setEdition(e);setCurrentStep(1);}},[searchParams,setEdition]);
 const handleNext=()=>{if(currentStep<STEPS.length-1){setCurrentStep(currentStep+1);window.scrollTo(0,0);}else{handleAddToCart();}};
 const handleBack=()=>{if(currentStep>0){setCurrentStep(currentStep-1);window.scrollTo(0,0);}else{navigate('/');}};
-const handleAddToCart=async()=>{setIsProcessing(true);try{const h=edition==='classic'?'classic-edition':'true-likeness-edition';const p=await getProductByHandle(h);if(!p)throw new Error('not found');const cp:Record<string,string>={'Edition':edition==='classic'?'Classic Edition':'True Likeness Edition','Story Title':storyTitle,'Cover Color':coverColor,'Dedication':dedication,'Gift Wrapping':giftWrapping?'Yes':'No'};children.forEach((c,i)=>{cp[`Child ${i+1} Name`]=c.name;cp[`Child ${i+1} Gender`]=c.gender;cp[`Child ${i+1} Age`]=c.ageRange;});dogs.forEach((d,i)=>{cp[`Dog ${i+1} Name`]=d.name;cp[`Dog ${i+1} Breed`]=d.breed;cp[`Dog ${i+1} Fur`]=d.furColor;cp[`Dog ${i+1} Collar`]=d.collarColor;});await createCheckoutAndRedirect([{variantId:p.variants[0].id,quantity:1,customAttributes:Object.entries(cp).map(([k,v])=>({key:k,value:v}))}]);}catch(e){console.error(e);alert('Could not connect to Shopify.');}finally{setIsProcessing(false);}};
+const handleAddToCart=async()=>{
+  setIsProcessing(true);
+  try{
+    const h=edition==='classic'?'classic-edition':'true-likeness-edition';
+    const giftWrapHandle=import.meta.env.VITE_SHOPIFY_GIFT_WRAP_HANDLE||'gift-wrapping';
+
+    // Fetch main product and gift wrap product in parallel
+    const [p, giftWrapProduct]=await Promise.all([
+      getProductByHandle(h),
+      giftWrapping?getProductByHandle(giftWrapHandle):Promise.resolve(null),
+    ]);
+    if(!p)throw new Error('Product not found');
+
+    const cp:Record<string,string>={
+      'Edition':edition==='classic'?'Classic Edition':'True Likeness Edition',
+      'Story Title':storyTitle,
+      'Cover Color':coverColor,
+      'Dedication':dedication,
+      'Gift Wrapping':giftWrapping?'Yes':'No',
+    };
+    children.forEach((c,i)=>{cp[`Child ${i+1} Name`]=c.name;cp[`Child ${i+1} Gender`]=c.gender;cp[`Child ${i+1} Age`]=c.ageRange;});
+    dogs.forEach((d,i)=>{cp[`Dog ${i+1} Name`]=d.name;cp[`Dog ${i+1} Breed`]=d.breed;cp[`Dog ${i+1} Fur`]=d.furColor;cp[`Dog ${i+1} Collar`]=d.collarColor;});
+
+    const lineItems:any[]=[{
+      variantId:p.variants[0].id,
+      quantity:1,
+      customAttributes:Object.entries(cp).map(([k,v])=>({key:k,value:v})),
+    }];
+
+    // Add gift wrapping as a separate line item so it appears in the Shopify order
+    if(giftWrapping&&giftWrapProduct){
+      lineItems.push({variantId:giftWrapProduct.variants[0].id,quantity:1});
+    }
+
+    await createCheckoutAndRedirect(lineItems);
+  }catch(e){
+    console.error(e);
+    alert('Could not connect to Shopify.');
+  }finally{
+    setIsProcessing(false);
+  }
+};
 const renderStep=()=>{switch(currentStep){case 0:return<Step0_Edition/>;case 1:return<Step1_Children onActiveChildChange={setActiveChildIndex}/>;case 2:return<Step2_Dogs/>;case 3:return<Step3_StoryTitle/>;case 4:return<Step4_FinalTouches/>;case 5:return<Step5_Review/>;default:return null;}};
 const FixedNavBar=()=>(<div className={`fixed bottom-0 left-0 w-full ${currentStep>=4?'md:w-1/2':''} bg-white/90 backdrop-blur-2xl border-t border-gray-100 p-5 flex gap-4 z-40`}><div className={`flex gap-4 w-full max-w-2xl`}><button onClick={handleBack} className="px-6 py-4 rounded-full border border-gray-200 font-bold text-navy/40 hover:border-navy hover:text-navy transition-all flex items-center gap-2 text-xs uppercase tracking-widest"><ChevronLeft className="w-4 h-4"/>Back</button><button onClick={handleNext} disabled={isProcessing} className={cn("flex-1 px-6 py-4 rounded-full bg-navy text-cream font-bold hover:bg-gold transition-all flex items-center justify-center gap-3 shadow-2xl text-xs uppercase tracking-widest",isProcessing&&"opacity-70 cursor-not-allowed")}>{isProcessing?<>Processing...<motion.div animate={{rotate:360}} transition={{repeat:Infinity,duration:1}} className="w-4 h-4 border-2 border-cream border-t-transparent rounded-full"/></>:currentStep===STEPS.length-1?<>Complete &amp; Checkout<ShoppingBag className="w-4 h-4"/></>:<>Continue<ChevronRight className="w-4 h-4"/></>}</button></div></div>);
 if(currentStep===0){return(<div className="min-h-screen bg-white flex flex-col items-center"><div className="w-full max-w-2xl px-6 md:px-10 pt-8 pb-32"><StepIndicator currentStep={0}/><div className="mt-8"><Step0_Edition/></div></div><div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-2xl border-t border-gray-100 p-5 flex justify-center z-40"><div className="flex gap-4 w-full max-w-2xl"><button onClick={handleBack} className="px-6 py-4 rounded-full border border-gray-200 font-bold text-navy/40 hover:border-navy hover:text-navy transition-all flex items-center gap-2 text-xs uppercase tracking-widest"><ChevronLeft className="w-4 h-4"/>Back</button><button onClick={handleNext} className="flex-1 px-6 py-4 rounded-full bg-navy text-cream font-bold hover:bg-gold transition-all flex items-center justify-center gap-3 text-xs uppercase tracking-widest">Continue<ChevronRight className="w-4 h-4"/></button></div></div></div>);}
