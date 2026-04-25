@@ -16,6 +16,9 @@ const AVAILABLE_BREEDS = new Set([
   'Border Collie', 'Boston Terrier', 'Cavapoo', 'Chow Chow',
   'Great Dane', 'Jack Russell Terrier', 'Maltese', 'Newfoundland',
   'Pug', 'Samoyed', 'Saint Bernard',
+  'Italian Greyhound', 'Papillon', 'Sheepadoodle', 'Irish Setter',
+  'English Springer Spaniel', 'Belgian Malinois', 'Rhodesian Ridgeback',
+  'Vizsla', 'Weimaraner',
 ]);
 
 const DOG_BREEDS: Record<string, string[]> = {
@@ -63,7 +66,7 @@ const BREED_FURS: Record<string, { name: string; file: string }[]> = {
   'Pomeranian':          [{name:'Gold',file:'gold'},{name:'Cream',file:'cream'},{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Sable',file:'sable'}],
   'Chihuahua':           [{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'White',file:'white'},{name:'Black And Tan',file:'black-and-tan'}],
   'American Bully':      [{name:'Black',file:'black'},{name:'Fawn',file:'fawn'},{name:'Chocolate',file:'chocolate'},{name:'Blue',file:'blue'},{name:'Sable',file:'sable'},{name:'Pure Blue',file:'pure-blue'}],
-  'Cocker Spaniel':      [{name:'Gold',file:'gold'},{name:'Black',file:'black'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'},{name:'Blue Roan',file:'blue-roan'},{name:'Brown And White',file:'brown-and-white'},{name:'Brown Roan',file:'brown-roan'},{name:'Ginger And White',file:'ginger-and.white'},{name:'Lemon And White',file:'lemon-and-white'},{name:'Orange Roan',file:'orange-roan'},{name:'Tricolor',file:'tricolor'}],
+  'Cocker Spaniel':      [{name:'Gold',file:'gold'},{name:'Black',file:'black'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'},{name:'Black And White',file:'black-and-white'},{name:'Blue Roan',file:'blue-roan'},{name:'Brown And White',file:'brown-and-white'},{name:'Brown Roan',file:'brown-roan'},{name:'Ginger And White',file:'ginger-and.white'},{name:'Lemon And White',file:'lemon-and-white'},{name:'Orange Roan',file:'orange-roan'},{name:'Tricolor',file:'tricolor'}],
   'Dalmatian':           [{name:'Black Spotted',file:'black-spotted'},{name:'Liver Spotted',file:'liver-spotted'}],
   'Goldendoodle':        [{name:'Gold',file:'gold'},{name:'Apricot',file:'apricot'},{name:'Cream',file:'cream'},{name:'Chocolate',file:'chocolate'},{name:'Red',file:'red'}],
   'Morkie':              [{name:'Black And Tan',file:'black-and-tan'},{name:'White',file:'white'},{name:'Black And White',file:'black-and-white'},{name:'Black',file:'black'},{name:'White And Gray',file:'white-and-gray'},{name:'Black And Brown',file:'black-and-brown'},{name:'Blue And Tan',file:'blue-and-tan'},{name:'Gray And Tan',file:'gray-and-tan'},{name:'Biewer',file:'biewer'}],
@@ -86,6 +89,15 @@ const BREED_FURS: Record<string, { name: string; file: string }[]> = {
   'Pug':                 [{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'Gray',file:'gray'}],
   'Samoyed':             [{name:'White',file:'white'},{name:'Cream',file:'cream'},{name:'White Cream',file:'white-cream'}],
   'Saint Bernard':       [{name:'Brown And White',file:'brown-and-white'}],
+  'Italian Greyhound':   [{name:'Gray',file:'gray'},{name:'Fawn',file:'fawn'},{name:'Black',file:'black'},{name:'Isabella',file:'isabella'}],
+  'Papillon':            [{name:'Black And White',file:'black-and-white'},{name:'Sable',file:'sable'},{name:'Lemon',file:'lemon'},{name:'Tricolor',file:'tricolor'}],
+  'Sheepadoodle':        [{name:'Black And White',file:'black-and-white'},{name:'Gray',file:'gray'},{name:'Tricolor',file:'tricolor'},{name:'Merle Chocolate',file:'merle-chocolate'}],
+  'Irish Setter':        [{name:'Mahogany',file:'mahogany'}],
+  'English Springer Spaniel': [{name:'Black And White',file:'black-and-white'},{name:'Liver And White',file:'liver-and-white'},{name:'Blue Roan',file:'blue-roan'},{name:'Liver Roan',file:'liver-roan'},{name:'Tricolor Black',file:'tricolor-black'},{name:'Tricolor Liver',file:'tricolor-liver'}],
+  'Belgian Malinois':    [{name:'Fawn',file:'fawn'},{name:'Red',file:'red'},{name:'Black',file:'black'}],
+  'Rhodesian Ridgeback': [{name:'Red Wheaten',file:'red-wheaten'},{name:'Light Wheaten',file:'light-wheaten'}],
+  'Vizsla':              [{name:'Fawn',file:'fawn'},{name:'Gold Ginger',file:'gold-ginger'},{name:'Dark Gold',file:'dark-gold'}],
+  'Weimaraner':          [{name:'Mouse Grey',file:'mouse-grey'},{name:'Dark Grey',file:'dark-grey'},{name:'Roe Grey',file:'roe-grey'}],
   'default':             [{name:'Brown',file:'brown'},{name:'Black',file:'black'},{name:'White',file:'white'}],
 };
 

@@ -21,6 +21,11 @@ const BREED_FOLDER: Record<string, string> = {
   'Jack Russell Terrier': 'jack-russell-terrier', 'Maltese': 'maltese',
   'Newfoundland': 'newfoundland', 'Pug': 'pug', 'Samoyed': 'samoyed',
   'Saint Bernard': 'saint-bernard',
+  'Italian Greyhound': 'italian-greyhound', 'Papillon': 'papilon',
+  'Sheepadoodle': 'sheepadoodle', 'Irish Setter': 'irish-setter',
+  'English Springer Spaniel': 'english-springer-spaniel',
+  'Belgian Malinois': 'belgian-malinois', 'Rhodesian Ridgeback': 'rhodesian-ridgeback',
+  'Vizsla': 'vizsla', 'Weimaraner': 'weimaraner',
 };
 
 const COLLAR_FILE: Record<string, string> = {
